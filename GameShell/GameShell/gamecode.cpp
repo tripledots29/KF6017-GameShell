@@ -10,7 +10,8 @@
 #include "errorlogger.h"
 #include <math.h>
 #include "shapes.h"
-
+#include "spaceship.h"
+#include "Rock.h"
 
 Game::Game()
 {
@@ -279,9 +280,22 @@ ErrorType Game::StartOfGame()
 {
    // Code to set up your game *********************************************
    // **********************************************************************
-	pTheSpaceShip = new Spaceship;
+	
+	//Setting up spaceship
+	Spaceship* pTheSpaceShip = new Spaceship() ;
+	pTheSpaceShip-> Intialise(Vector2D (20,20), &TheObjectManager);
+	TheObjectManager.AddObject(pTheSpaceShip);
 
-	pTheSpaceShip -> Intialise(Vector2D (20,20));
+
+	//Setting up 5 rocks
+	for (int i = 0; i < 6; i++)
+	{
+		Rock* pTheRock = new Rock();
+		Vector2D pos;
+		pos.setBearing(rand() %628 / 100.0f, rand() %400 + 600);
+	    pTheRock->Intialise(pos);
+		TheObjectManager.AddObject(pTheRock);
+	}
 
 	gt.mark();
 	gt.mark();
@@ -311,12 +325,9 @@ ErrorType Game::Update()
 
    // Your code goes here *************************************************
    // *********************************************************************
-	
-	pTheSpaceShip->Update(gt.mdFrameTime);
 
-	pTheSpaceShip->Render();
-
-
+	TheObjectManager.UpdateAll(gt.mdFrameTime);
+	TheObjectManager.RenderAll();
 
 
 	gt.mark();
@@ -340,7 +351,7 @@ ErrorType Game::EndOfGame()
    // Add code here to tidy up ********************************************
    // *********************************************************************
 
-	delete pTheSpaceShip;
+	TheObjectManager.DeleteAll();
 
 	return SUCCESS;
 }

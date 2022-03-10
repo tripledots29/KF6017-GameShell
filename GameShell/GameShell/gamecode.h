@@ -10,8 +10,8 @@
 #include "windows.h"
 #include "mydrawengine.h"
 #include "gametimer.h"
-#include "GameObject.h"
-#include "spaceship.h"
+#include "ObjectManager.h"
+
 
 // This is a hack for reading keyboard in situations where you don't want to
 // use a full input system.
@@ -36,7 +36,8 @@ private:
                                   //            after tidying up
 	void ChangeState(GameState newState);  // Use to change the state of the game to one of the states above
 	
-	Spaceship* pTheSpaceShip;	   // pointer to the superclass
+	ObjectManager TheObjectManager;
+	
 
 	int m_menuOption;              // Tracks the currently selected menu option, during main or pause menu
 	Game();                        // Constructor

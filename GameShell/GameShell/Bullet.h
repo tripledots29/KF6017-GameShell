@@ -2,14 +2,15 @@
 #include "GameObject.h"
 #include "ObjectManager.h"
 
-class Rock : public GameObject
+class Bullet : public GameObject
 {
 private:
 	Vector2D velocity;
+	float timer;
 
 public:
-	Rock();
-	~Rock();
-	void Intialise(Vector2D initialPosition);
+	Bullet();
+	~Bullet();
+	void Intialise(Vector2D initialPosition, Vector2D initialVelocity);
 	void Update(float frameTime) override;
 };

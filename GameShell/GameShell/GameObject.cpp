@@ -18,11 +18,10 @@ void GameObject::LoadImage(const wchar_t filename[])
 
 void GameObject::Render()
 {
-
 	if (objectActive == true)
 	{
 		MyDrawEngine* pDE = MyDrawEngine::GetInstance();
-		pDE->DrawAt(position, pic); //2.0f, 0.5f, 0.8f
+		pDE->DrawAt(position, pic, 2, angle); //2.0f, 0.5f, 0.8f
 	}
 
 }
