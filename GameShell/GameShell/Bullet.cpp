@@ -26,7 +26,7 @@ void Bullet::Update(float frameTime)
 
 	if (timer > 0)
 	{
-		timer = timer - frameTime;
+		timer = timer - frameTime; //timer is how long it takes in seconds for a bullet to "disappear" (become inactive)
 	}
 	else
 	{

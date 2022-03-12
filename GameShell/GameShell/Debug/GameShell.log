@@ -1,2 +1,6 @@
-﻿  ObjectManager.cpp
-  GameShell.vcxproj -> C:\Users\student\Documents\gameshell\GameShell\Debug\GameShell.exe
+﻿  gamecode.cpp
+C:\Users\student\Documents\GitHub\KF6017-GameShell\GameShell\GameShell\gamecode.cpp(295,52): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\student\Documents\GitHub\KF6017-GameShell\GameShell\GameShell\gamecode.cpp(329,31): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  spaceship.cpp
+  Generating Code...
+  GameShell.vcxproj -> C:\Users\student\Documents\GitHub\KF6017-GameShell\GameShell\Debug\GameShell.exe

@@ -14,7 +14,7 @@ void Rock::Intialise(Vector2D initialPosition)
 {
 	objectActive = true;
 	position = initialPosition;
-	velocity.set(10, 0);
+	velocity.set(40, 0);
 	LoadImage(L"rock1.bmp");
 }
 

@@ -7,6 +7,8 @@ class Spaceship : public GameObject
 {
 private:
 	Vector2D velocity;
+	const float shootDelayDefault = 0.4f;
+	float shootDelay = shootDelayDefault;
 	ObjectManager* pTheObjectManager;
 
 public:

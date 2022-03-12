@@ -283,7 +283,7 @@ ErrorType Game::StartOfGame()
 	
 	//Setting up spaceship
 	Spaceship* pTheSpaceShip = new Spaceship() ;
-	pTheSpaceShip-> Intialise(Vector2D (20,20), &TheObjectManager);
+	pTheSpaceShip-> Intialise(Vector2D (20.0f,20.0f), &TheObjectManager);
 	TheObjectManager.AddObject(pTheSpaceShip);
 
 
