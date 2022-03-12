@@ -328,7 +328,8 @@ ErrorType Game::Update()
 
 	TheObjectManager.UpdateAll(gt.mdFrameTime);
 	TheObjectManager.RenderAll();
-
+	//TheObjectManager.DeleteAllInactive();
+	
 
 	gt.mark();
 
@@ -351,7 +352,7 @@ ErrorType Game::EndOfGame()
    // Add code here to tidy up ********************************************
    // *********************************************************************
 
-	TheObjectManager.DeleteAll();
+	TheObjectManager.DeleteAllEnd();
 
 	return SUCCESS;
 }

@@ -16,12 +16,18 @@ void GameObject::LoadImage(const wchar_t filename[])
 	pic = pDE->LoadPicture(filename);
 }
 
+bool GameObject::IsActive() const
+{
+	return objectActive;
+}
+
+void GameObject::Deactivate() 
+{
+	objectActive = false;
+}
+
 void GameObject::Render()
 {
-	if (objectActive == true)
-	{
-		MyDrawEngine* pDE = MyDrawEngine::GetInstance();
-		pDE->DrawAt(position, pic, 2, angle); //2.0f, 0.5f, 0.8f
-	}
-
+	MyDrawEngine* pDE = MyDrawEngine::GetInstance();
+	pDE->DrawAt(position, pic, 2, angle); //2.0f, 0.5f, 0.8f
 }

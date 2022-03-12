@@ -7,7 +7,7 @@ ObjectManager::ObjectManager()
 
 ObjectManager::~ObjectManager()
 {
-	DeleteAll();
+	DeleteAllEnd();
 }
 
 void ObjectManager::AddObject(GameObject* pNewObject)
@@ -19,7 +19,10 @@ void ObjectManager::UpdateAll(float frameTime)
 {
 	for (GameObject* pNext : pObjectList)
 	{
-		pNext->Update(frameTime);
+		if (pNext->IsActive())
+		{
+			pNext->Update(frameTime);
+		}
 	}
 }
 
@@ -27,11 +30,28 @@ void ObjectManager::RenderAll()
 {
 	for (GameObject* pNext : pObjectList)
 	{
-		pNext->Render();
+		if (pNext->IsActive())
+		{
+			pNext->Render();
+		}
 	}
 }
 
-void ObjectManager::DeleteAll()
+void ObjectManager::DeleteAllInactive()
+{
+	for (GameObject* pNext : pObjectList)
+	{
+		if (!pNext->IsActive())
+		{
+			delete pNext;
+			pNext = nullptr;
+			pObjectList.clear();
+		}
+	}
+
+}
+
+void ObjectManager::DeleteAllEnd()
 {
 	for (GameObject* pNext : pObjectList)
 	{

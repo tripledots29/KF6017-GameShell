@@ -15,5 +15,6 @@ public:
 	void AddObject(GameObject* pNewObject);
 	void UpdateAll(float frameTime);
 	void RenderAll();
-	void DeleteAll();
+	void DeleteAllInactive();
+	void DeleteAllEnd();
 };

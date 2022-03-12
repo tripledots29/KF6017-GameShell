@@ -1,27 +1,2 @@
-﻿  camera.cpp
-  ErrorLogger.cpp
-  gamecode.cpp
-C:\Users\student\Documents\GitHub\KF6017-GameShell\GameShell\GameShell\gamecode.cpp(295,52): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\student\Documents\GitHub\KF6017-GameShell\GameShell\GameShell\gamecode.cpp(329,31): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  GameObject.cpp
-  gametimer.cpp
-  mydrawengine.cpp
-  myinputs.cpp
-  mysoundengine.cpp
-  Rock.cpp
-  Shapes.cpp
-  spaceship.cpp
-  vector2D.cpp
-  wincode.cpp
-  Generating Code...
-  LINK : C:\Users\student\Documents\GitHub\KF6017-GameShell\GameShell\Debug\GameShell.exe not found or not built by the last incremental link; performing full link
-gamecode.obj : error LNK2019: unresolved external symbol "public: __thiscall ObjectManager::ObjectManager(void)" (??0ObjectManager@@QAE@XZ) referenced in function "private: __thiscall Game::Game(void)" (??0Game@@AAE@XZ)
-gamecode.obj : error LNK2019: unresolved external symbol "public: __thiscall ObjectManager::~ObjectManager(void)" (??1ObjectManager@@QAE@XZ) referenced in function __unwindfunclet$??0Game@@AAE@XZ$0
-gamecode.obj : error LNK2019: unresolved external symbol "public: void __thiscall ObjectManager::AddObject(class GameObject *)" (?AddObject@ObjectManager@@QAEXPAVGameObject@@@Z) referenced in function "public: enum ErrorType __thiscall Game::StartOfGame(void)" (?StartOfGame@Game@@QAE?AW4ErrorType@@XZ)
-spaceship.obj : error LNK2001: unresolved external symbol "public: void __thiscall ObjectManager::AddObject(class GameObject *)" (?AddObject@ObjectManager@@QAEXPAVGameObject@@@Z)
-gamecode.obj : error LNK2019: unresolved external symbol "public: void __thiscall ObjectManager::UpdateAll(float)" (?UpdateAll@ObjectManager@@QAEXM@Z) referenced in function "public: enum ErrorType __thiscall Game::Update(void)" (?Update@Game@@QAE?AW4ErrorType@@XZ)
-gamecode.obj : error LNK2019: unresolved external symbol "public: void __thiscall ObjectManager::RenderAll(void)" (?RenderAll@ObjectManager@@QAEXXZ) referenced in function "public: enum ErrorType __thiscall Game::Update(void)" (?Update@Game@@QAE?AW4ErrorType@@XZ)
-gamecode.obj : error LNK2019: unresolved external symbol "public: void __thiscall ObjectManager::DeleteAll(void)" (?DeleteAll@ObjectManager@@QAEXXZ) referenced in function "public: enum ErrorType __thiscall Game::EndOfGame(void)" (?EndOfGame@Game@@QAE?AW4ErrorType@@XZ)
-spaceship.obj : error LNK2019: unresolved external symbol "public: __thiscall Bullet::Bullet(void)" (??0Bullet@@QAE@XZ) referenced in function "public: virtual void __thiscall Spaceship::Update(float)" (?Update@Spaceship@@UAEXM@Z)
-spaceship.obj : error LNK2019: unresolved external symbol "public: void __thiscall Bullet::Intialise(class Vector2D,class Vector2D)" (?Intialise@Bullet@@QAEXVVector2D@@0@Z) referenced in function "public: virtual void __thiscall Spaceship::Update(float)" (?Update@Spaceship@@UAEXM@Z)
-C:\Users\student\Documents\GitHub\KF6017-GameShell\GameShell\Debug\GameShell.exe : fatal error LNK1120: 8 unresolved externals
+﻿  ObjectManager.cpp
+  GameShell.vcxproj -> C:\Users\student\Documents\gameshell\GameShell\Debug\GameShell.exe

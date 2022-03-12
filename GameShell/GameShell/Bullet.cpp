@@ -13,7 +13,7 @@ Bullet::~Bullet()
 void Bullet::Intialise(Vector2D initialPosition, Vector2D initialVelocity)
 {
 	objectActive = true;
-	timer = 10.0f;
+	timer = 2.0f;
 	position = initialPosition;
 	velocity = initialVelocity;
 	LoadImage(L"bullet.bmp");
@@ -21,17 +21,16 @@ void Bullet::Intialise(Vector2D initialPosition, Vector2D initialVelocity)
 
 void Bullet::Update(float frameTime)
 {
-	if(objectActive == true)
-	{
-		position = position + velocity * frameTime;
 
-		if (timer < 0)
-		{
-			timer = timer - frameTime;
-		}
-		else
-		{
-			objectActive = false;
-		}
+	position = position + velocity * frameTime;
+
+	if (timer > 0)
+	{
+		timer = timer - frameTime;
 	}
+	else
+	{
+		Deactivate();
+	}
+
 }
