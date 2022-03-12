@@ -28,6 +28,8 @@ void ObjectManager::UpdateAll(float frameTime)
 
 void ObjectManager::RenderAll()
 {
+	MyDrawEngine::GetInstance()->WriteInt(50, 50, pObjectList.size(), MyDrawEngine::GREEN);
+
 	for (GameObject* pNext : pObjectList)
 	{
 		if (pNext->IsActive())
