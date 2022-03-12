@@ -24,7 +24,7 @@ void Spaceship::Intialise(Vector2D initialPosition, ObjectManager* p_TheObjectMa
 
 void Spaceship::Update(float frameTime)
 {
-	
+	//referencing the inputs
 	MyInputs* pInputs = MyInputs::GetInstance();
 	pInputs->SampleKeyboard();
 
@@ -61,7 +61,7 @@ void Spaceship::Update(float frameTime)
 	//updating position based on velocity + friction
 	position = position + velocity * frameTime;
 
-	//key inputs for shooting
+	//key inputs for shooting and shoot delays
 	if ((pInputs->KeyPressed(DIK_SPACE)) && (shootDelay < 0))
 	{
 		Bullet* pTheBullet = new Bullet();
@@ -74,7 +74,6 @@ void Spaceship::Update(float frameTime)
 		}
 		shootDelay = shootDelayDefault; //reset shootDelay back to default value. value = how many seconds a bullet replenishes
 	}
-
 	shootDelay = shootDelay - frameTime; //every frame take away until delay hits 0
 
 	//wrap around

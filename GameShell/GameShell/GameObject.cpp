@@ -16,6 +16,15 @@ void GameObject::LoadImage(const wchar_t filename[])
 	pic = pDE->LoadPicture(filename);
 }
 
+
+void GameObject::PlaySound(const wchar_t filename[])
+{
+	MySoundEngine* pSE = MySoundEngine::GetInstance();
+	sound = pSE->LoadWav(filename);
+	pSE->Play(sound); //ASK CHRIS WHY THIS IS UNDERLINED
+
+}
+
 bool GameObject::IsActive() const
 {
 	return objectActive;
@@ -29,5 +38,5 @@ void GameObject::Deactivate()
 void GameObject::Render()
 {
 	MyDrawEngine* pDE = MyDrawEngine::GetInstance();
-	pDE->DrawAt(position, pic, 2, angle); //2.0f, 0.5f, 0.8f
+	pDE->DrawAt(position, pic, 1.5, angle, 0); //position, picture, scale, angle, transparancy (0 = opaque)
 }

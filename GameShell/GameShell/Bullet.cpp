@@ -3,6 +3,7 @@
 Bullet::Bullet()
 {
 	objectActive = false;
+	timer = 2.0f;
 }
 
 Bullet::~Bullet()
@@ -13,10 +14,10 @@ Bullet::~Bullet()
 void Bullet::Intialise(Vector2D initialPosition, Vector2D initialVelocity)
 {
 	objectActive = true;
-	timer = 2.0f;
 	position = initialPosition;
 	velocity = initialVelocity;
 	LoadImage(L"bullet.bmp");
+	PlaySound(L"shoot.wav");
 }
 
 void Bullet::Update(float frameTime)
