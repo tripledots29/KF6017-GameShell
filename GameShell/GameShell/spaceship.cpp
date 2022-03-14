@@ -29,14 +29,14 @@ void Spaceship::Update(float frameTime)
 	pInputs->SampleKeyboard();
 
 	//key inputs for movement
-	if (pInputs->KeyPressed(DIK_UP))
+	if ((pInputs->KeyPressed(DIK_UP)) || (pInputs->KeyPressed(DIK_W)))
 	{
 		Vector2D acceleration;
 		acceleration.setBearing(angle, 500.0f);
 		velocity = velocity + acceleration * frameTime;
 	}
 
-	if (pInputs->KeyPressed(DIK_DOWN))
+	if ((pInputs->KeyPressed(DIK_DOWN)) || (pInputs->KeyPressed(DIK_S)))
 	{
 		Vector2D acceleration;
 		acceleration.setBearing(angle, -500.0f);
@@ -44,12 +44,12 @@ void Spaceship::Update(float frameTime)
 	}
 
 	//key inputs for rotating
-	if (pInputs->KeyPressed(DIK_LEFT))
+	if ((pInputs->KeyPressed(DIK_LEFT)) || (pInputs->KeyPressed(DIK_A)))
 	{
 		angle = angle - 2.0f * frameTime;
 	}
 
-	if (pInputs->KeyPressed(DIK_RIGHT))
+	if ((pInputs->KeyPressed(DIK_RIGHT)) || (pInputs->KeyPressed(DIK_D)))
 	{
 		angle = angle + 2.0f * frameTime;
 	}
