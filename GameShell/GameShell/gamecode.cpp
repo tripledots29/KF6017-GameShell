@@ -328,9 +328,10 @@ ErrorType Game::Update()
 	
 	gt.mark();
 
+	TheObjectManager.DeleteAllInactive(); //ASK CHRIS WHY THIS DOES NOT WORK
+
 	TheObjectManager.UpdateAll(gt.mdFrameTime);
 	TheObjectManager.RenderAll();
-	//TheObjectManager.DeleteAllInactive(); //ASK CHRIS WHY THIS DOES NOT WORK
 	
 	
 

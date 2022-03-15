@@ -19,7 +19,7 @@ void ObjectManager::UpdateAll(float frameTime)
 {
 	for (GameObject* pNext : pObjectList)
 	{
-		if (pNext->IsActive())
+		if ((pNext) && (pNext->IsActive()))
 		{
 			pNext->Update(frameTime);
 		}
@@ -32,7 +32,7 @@ void ObjectManager::RenderAll()
 
 	for (GameObject* pNext : pObjectList)
 	{
-		if (pNext->IsActive())
+		if ((pNext) && (pNext->IsActive()))
 		{
 			pNext->Render();
 		}
@@ -43,14 +43,13 @@ void ObjectManager::DeleteAllInactive()
 {
 	for (GameObject* pNext : pObjectList)
 	{
-		if (!pNext->IsActive())
+		if ((!pNext) || (!pNext->IsActive()))
 		{
 			delete pNext;
 			pNext = nullptr;
-			pObjectList.clear();
 		}
 	}
-
+	pObjectList.remove(nullptr);
 }
 
 void ObjectManager::DeleteAllEnd()
