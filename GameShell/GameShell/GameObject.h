@@ -4,6 +4,7 @@
 #include "mysoundengine.h"
 #include "myinputs.h"
 #include "gametimer.h"
+#include "Shapes.h"
 
 class GameObject
 {
@@ -25,4 +26,6 @@ public:
 	void Deactivate();
 	void Render();
 	virtual void Update(float frameTime) = 0;
+	virtual IShape2D& GetShape() = 0;
+	virtual void ProcessCollision(GameObject* collidedWith) = 0;
 };

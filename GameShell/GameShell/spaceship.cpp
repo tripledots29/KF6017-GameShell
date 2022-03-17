@@ -10,6 +10,7 @@ Spaceship::~Spaceship()
 
 }
 
+const float Spaceship::RADIUS = 32.0f;
 
 void Spaceship::Intialise(Vector2D initialPosition, ObjectManager* p_TheObjectManager)
 {
@@ -24,6 +25,10 @@ void Spaceship::Intialise(Vector2D initialPosition, ObjectManager* p_TheObjectMa
 
 void Spaceship::Update(float frameTime)
 {
+	//update hitbox each frame
+	collisionShape.PlaceAt(position, 30);
+
+
 	//referencing the inputs
 	MyInputs* pInputs = MyInputs::GetInstance();
 	pInputs->SampleKeyboard();
@@ -66,8 +71,10 @@ void Spaceship::Update(float frameTime)
 	{
 		Bullet* pTheBullet = new Bullet();
 		Vector2D bulletVelocity;
+		Vector2D bulletLaunchPosition;
+		bulletLaunchPosition.setBearing(angle, 200);
 		bulletVelocity.setBearing(angle, 500.0f); //500 magnitude for the bullet = fast shooting. and at angle ship is currently facing
-		pTheBullet->Intialise(position, bulletVelocity);
+		pTheBullet->Intialise(position+bulletLaunchPosition, bulletVelocity);
 		if (pTheObjectManager)
 		{
 			pTheObjectManager->AddObject(pTheBullet);
@@ -93,5 +100,16 @@ void Spaceship::Update(float frameTime)
 	{
 		position.YValue = 1000.0f;
 	}
+
+}
+
+IShape2D& Spaceship::GetShape()
+{
+	return collisionShape;
+}
+
+void Spaceship::ProcessCollision(GameObject* collidedWith)
+{
+	
 
 }

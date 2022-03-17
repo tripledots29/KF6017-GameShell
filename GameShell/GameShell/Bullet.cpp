@@ -22,6 +22,8 @@ void Bullet::Intialise(Vector2D initialPosition, Vector2D initialVelocity)
 
 void Bullet::Update(float frameTime)
 {
+	//update hitbox each frame
+	collisionShape.PlaceAt(position, 30);
 
 	position = position + velocity * frameTime;
 
@@ -33,5 +35,16 @@ void Bullet::Update(float frameTime)
 	{
 		Deactivate();
 	}
+
+}
+
+
+IShape2D& Bullet::GetShape()
+{
+	return collisionShape;
+}
+
+void Bullet::ProcessCollision(GameObject* collidedWith)
+{
 
 }
