@@ -10,7 +10,7 @@ Explosion::~Explosion()
 
 }
 
-void Explosion::Intialise(Vector2D initialPosition)
+void Explosion::Initialise(Vector2D initialPosition)
 {
 	objectActive = true;
 	position = initialPosition;

@@ -12,8 +12,7 @@ GameObject::~GameObject()
 
 void GameObject::LoadImage(const wchar_t filename[])
 {
-	MyDrawEngine* pDE = MyDrawEngine::GetInstance();
-	pic = pDE->LoadPicture(filename);
+	pic = MyDrawEngine::GetInstance()->LoadPicture(filename);
 }
 
 
@@ -37,6 +36,36 @@ void GameObject::Deactivate()
 
 void GameObject::Render()
 {
-	MyDrawEngine* pDE = MyDrawEngine::GetInstance();
-	pDE->DrawAt(position, pic, 1.5, angle, 0); //position, picture, scale, angle, transparancy (0 = opaque)
+	if (objectActive)
+	{
+		MyDrawEngine::GetInstance()->DrawAt(position, pic, imageScale, angle, 0); //position, picture, scale, angle, transparancy (0 = opaque)
+	}
 }
+
+/*
+void GameObject::SetScale(float scale)
+{
+	imageScale = scale;
+}
+*/
+
+void GameObject::ProcessCollision(GameObject& collidedWith)
+{
+	Deactivate();
+	//default collision process is to deactivate
+}
+
+/*
+//try this in next workshop
+const type_info& GameObject::GetType()
+{
+	return typeid(*this);
+}
+*/
+
+/*
+ObjectType GameObject::GetType() const
+{
+	return type;
+}
+*/

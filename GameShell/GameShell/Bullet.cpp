@@ -4,6 +4,7 @@ Bullet::Bullet()
 {
 	objectActive = false;
 	timer = 2.0f;
+	bmpRadius = 4.0f;
 }
 
 Bullet::~Bullet()
@@ -11,11 +12,14 @@ Bullet::~Bullet()
 
 }
 
-void Bullet::Intialise(Vector2D initialPosition, Vector2D initialVelocity)
+
+void Bullet::Initialise(Vector2D initialPosition, float initialSize, Vector2D initialVelocity)
 {
 	objectActive = true;
 	position = initialPosition;
 	velocity = initialVelocity;
+	size = initialSize;
+	imageScale = initialSize / bmpRadius;
 	LoadImage(L"bullet.bmp");
 	PlaySound(L"shoot.wav");
 }
@@ -23,7 +27,7 @@ void Bullet::Intialise(Vector2D initialPosition, Vector2D initialVelocity)
 void Bullet::Update(float frameTime)
 {
 	//update hitbox each frame
-	collisionShape.PlaceAt(position, 30);
+	collisionShape.PlaceAt(position.YValue + size,position.XValue - size, position.YValue - size, position.XValue + size); //exact square around the bullet
 
 	position = position + velocity * frameTime;
 
@@ -44,7 +48,8 @@ IShape2D& Bullet::GetShape()
 	return collisionShape;
 }
 
-void Bullet::ProcessCollision(GameObject* collidedWith)
-{
 
+void Bullet::ProcessCollision(GameObject& collidedWith)
+{
+	Deactivate();
 }

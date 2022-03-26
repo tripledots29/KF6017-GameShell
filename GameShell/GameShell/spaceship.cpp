@@ -1,8 +1,13 @@
 #include "spaceship.h"
+#include "Rock.h"
 
 Spaceship::Spaceship()
 {
 	objectActive = false;
+	pTheObjectManager = 0;
+	bmpRadius = 32.0f;
+
+	//type = ObjectType::SPACESHIP;
 }
 
 Spaceship::~Spaceship()
@@ -10,12 +15,12 @@ Spaceship::~Spaceship()
 
 }
 
-const float Spaceship::RADIUS = 32.0f;
-
-void Spaceship::Intialise(Vector2D initialPosition, ObjectManager* p_TheObjectManager)
+void Spaceship::Initialise(Vector2D initialPosition, float initialSize, ObjectManager* p_TheObjectManager)
 {
 	objectActive = true;
 	position = initialPosition;
+	size = initialSize;
+	imageScale = initialSize / bmpRadius;
 	velocity.set (0.0f,0.0f);
 	LoadImage(L"ship.bmp");
 
@@ -26,8 +31,7 @@ void Spaceship::Intialise(Vector2D initialPosition, ObjectManager* p_TheObjectMa
 void Spaceship::Update(float frameTime)
 {
 	//update hitbox each frame
-	collisionShape.PlaceAt(position, 30);
-
+	collisionShape.PlaceAt(position, size);
 
 	//referencing the inputs
 	MyInputs* pInputs = MyInputs::GetInstance();
@@ -69,12 +73,21 @@ void Spaceship::Update(float frameTime)
 	//key inputs for shooting and shoot delays
 	if ((pInputs->KeyPressed(DIK_SPACE)) && (shootDelay < 0))
 	{
+		//create a new rock
 		Bullet* pTheBullet = new Bullet();
+
+		//bullet's data
 		Vector2D bulletVelocity;
 		Vector2D bulletLaunchPosition;
-		bulletLaunchPosition.setBearing(angle, 200);
+
+		//setting bearings for where it comes from and how fast it goes
+		bulletLaunchPosition.setBearing(angle, size*1.5);
 		bulletVelocity.setBearing(angle, 500.0f); //500 magnitude for the bullet = fast shooting. and at angle ship is currently facing
-		pTheBullet->Intialise(position+bulletLaunchPosition, bulletVelocity);
+
+		//initialise the bullet
+		pTheBullet->Initialise(position+bulletLaunchPosition, 4.0f, bulletVelocity);
+
+		//if the object manager is there then add the bullet to it
 		if (pTheObjectManager)
 		{
 			pTheObjectManager->AddObject(pTheBullet);
@@ -103,13 +116,18 @@ void Spaceship::Update(float frameTime)
 
 }
 
+
+
 IShape2D& Spaceship::GetShape()
 {
 	return collisionShape;
 }
 
-void Spaceship::ProcessCollision(GameObject* collidedWith)
+void Spaceship::ProcessCollision(GameObject& collidedWith)
 {
-	
-
+	if (typeid(collidedWith) == typeid(Rock))
+	{
+		Deactivate(); // if the spaceship crashes into asteroid then it dies
+	}
 }
+

@@ -13,7 +13,7 @@ private:
 public:
 	Explosion();
 	~Explosion();
-	void Intialise(Vector2D initialPosition);
+	void Initialise(Vector2D initialPosition);
 	//void Update(float frameTime) override;
 	//IShape2D& GetShape() override;
 	//void ProcessCollision(GameObject* collidedWith) override;

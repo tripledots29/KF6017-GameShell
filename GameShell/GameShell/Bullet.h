@@ -7,14 +7,13 @@ class Bullet : public GameObject
 private:
 	Vector2D velocity;
 	float timer;
-	Circle2D collisionShape;
-
+	Rectangle2D collisionShape;
 
 public:
 	Bullet();
 	~Bullet();
-	void Intialise(Vector2D initialPosition, Vector2D initialVelocity);
+	void Initialise(Vector2D initialPosition, float initialSize, Vector2D initialVelocity);
 	void Update(float frameTime) override;
 	IShape2D& GetShape() override;
-	void ProcessCollision(GameObject* collidedWith) override;
+	void ProcessCollision(GameObject& collidedWith) override;
 };

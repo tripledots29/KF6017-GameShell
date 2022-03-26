@@ -12,6 +12,7 @@
 #include "shapes.h"
 #include "spaceship.h"
 #include "Rock.h"
+#include <iostream>
 
 Game::Game()
 {
@@ -283,7 +284,7 @@ ErrorType Game::StartOfGame()
 	
 	//Setting up spaceship
 	Spaceship* pTheSpaceShip = new Spaceship() ;
-	pTheSpaceShip-> Intialise(Vector2D (20.0f,20.0f), &TheObjectManager);
+	pTheSpaceShip->Initialise(Vector2D (20.0f,20.0f), 32.0f, &TheObjectManager);
 	TheObjectManager.AddObject(pTheSpaceShip);
 
 
@@ -292,13 +293,16 @@ ErrorType Game::StartOfGame()
 	{
 		Rock* pTheRock = new Rock();
 		Vector2D pos;
+		Vector2D vel;
 		pos.setBearing(rand() %628 / 100.0f, rand() %400 + 600);
-	    pTheRock->Intialise(pos);
+		vel.set(rand() % 200 + (-100), rand() % 200 + (-100));
+	    pTheRock->Initialise(pos, vel, 64.0f, true, &TheObjectManager);
 		TheObjectManager.AddObject(pTheRock);
 	}
 
 	gt.mark();
 	gt.mark();
+
 
 
 	return SUCCESS;

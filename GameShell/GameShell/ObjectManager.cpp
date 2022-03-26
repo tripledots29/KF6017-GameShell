@@ -73,7 +73,8 @@ void ObjectManager::CheckAllCollisions()
 		{
 			if ((*it1) && (*it2) && ((*it1)->GetShape().Intersects((*it2)->GetShape())))
 			{
-				(*it1)->ProcessCollision(*it2);
+				(*it1)->ProcessCollision(**it2);
+				(*it2)->ProcessCollision(**it1);
 
 			}
 		}

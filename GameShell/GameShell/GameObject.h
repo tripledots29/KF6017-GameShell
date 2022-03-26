@@ -5,15 +5,23 @@
 #include "myinputs.h"
 #include "gametimer.h"
 #include "Shapes.h"
+#include <typeinfo>
+
+//enum class ObjectType{UNKNOWN, SPACESHIP, ROCK, BULLET};
 
 class GameObject
 {
 protected:
 	Vector2D position;
 	float angle;
+	float imageScale = 1; //scale the object is on (originally 1)
+	float bmpRadius; //original radius object has from the bmp file
+	float size;  //actual size of the object (half width)
 	PictureIndex pic;
 	SoundIndex sound;
 	bool objectActive;
+	//ObjectType type;
+
 
 public:
 	GameObject();
@@ -25,7 +33,10 @@ public:
 	bool IsActive() const;
 	void Deactivate();
 	void Render();
+	void SetScale(float scale);
 	virtual void Update(float frameTime) = 0;
 	virtual IShape2D& GetShape() = 0;
-	virtual void ProcessCollision(GameObject* collidedWith) = 0;
+	virtual void ProcessCollision(GameObject& collidedWith);
+	//const type_info& GetType(); //try this next workshop
+	//ObjectType GetType() const;
 };
