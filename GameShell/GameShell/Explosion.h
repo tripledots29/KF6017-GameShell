@@ -5,17 +5,18 @@
 class Explosion : public GameObject
 {
 private:
-	//Vector2D velocity;
-	//Circle2D collisionShape;
-	//PictureIndex images[8];
-	//PictureIndex currentImage;
+
+	PictureIndex images[8];
+	float currentImage;
+	Circle2D collisionShape;
 
 public:
 	Explosion();
 	~Explosion();
-	void Initialise(Vector2D initialPosition);
-	//void Update(float frameTime) override;
-	//IShape2D& GetShape() override;
+	void Initialise(Vector2D initialPosition, bool isCollidable, float initialSize);
+	void Render() override;
+	void Update(float frameTime) override;
+	IShape2D& GetShape() override;
 	//void ProcessCollision(GameObject* collidedWith) override;
 
 };

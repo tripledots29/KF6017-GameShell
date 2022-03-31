@@ -2,6 +2,8 @@
 #include "GameObject.h"
 #include "ObjectManager.h"
 #include "Bullet.h"
+#include "Rock.h"
+#include "Explosion.h"
 
 class Spaceship : public GameObject
 {
@@ -17,7 +19,7 @@ private:
 public:
 	Spaceship();
 	~Spaceship();
-	void Initialise(Vector2D initialPosition, float initialSize, ObjectManager* p_TheObjectManager);
+	void Initialise(Vector2D initialPosition, float initialSize, bool isCollidable, ObjectManager* p_TheObjectManager);
 	void Update(float frameTime) override;
 	IShape2D& GetShape() override;
 	void ProcessCollision(GameObject& collidedWith) override;

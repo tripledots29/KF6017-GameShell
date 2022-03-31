@@ -11,6 +11,7 @@
 #include <math.h>
 #include "shapes.h"
 #include "spaceship.h"
+#include "Explosion.h"
 #include "Rock.h"
 #include <iostream>
 
@@ -284,7 +285,7 @@ ErrorType Game::StartOfGame()
 	
 	//Setting up spaceship
 	Spaceship* pTheSpaceShip = new Spaceship() ;
-	pTheSpaceShip->Initialise(Vector2D (20.0f,20.0f), 32.0f, &TheObjectManager);
+	pTheSpaceShip->Initialise(Vector2D (20.0f,20.0f), 32.0f, true, &TheObjectManager);
 	TheObjectManager.AddObject(pTheSpaceShip);
 
 
@@ -296,9 +297,11 @@ ErrorType Game::StartOfGame()
 		Vector2D vel;
 		pos.setBearing(rand() %628 / 100.0f, rand() %400 + 600);
 		vel.set(rand() % 200 + (-100), rand() % 200 + (-100));
-	    pTheRock->Initialise(pos, vel, 64.0f, true, &TheObjectManager);
+	    pTheRock->Initialise(pos, vel, 64.0f, true, true, &TheObjectManager);
 		TheObjectManager.AddObject(pTheRock);
 	}
+
+
 
 	gt.mark();
 	gt.mark();

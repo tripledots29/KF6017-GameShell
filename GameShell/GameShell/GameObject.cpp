@@ -49,6 +49,11 @@ void GameObject::SetScale(float scale)
 }
 */
 
+bool GameObject::getCollide()
+{
+	return canCollide;
+}
+
 void GameObject::ProcessCollision(GameObject& collidedWith)
 {
 	Deactivate();

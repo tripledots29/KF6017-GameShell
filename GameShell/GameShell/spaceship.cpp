@@ -1,9 +1,9 @@
 #include "spaceship.h"
-#include "Rock.h"
 
 Spaceship::Spaceship()
 {
 	objectActive = false;
+
 	pTheObjectManager = 0;
 	bmpRadius = 32.0f;
 
@@ -15,12 +15,13 @@ Spaceship::~Spaceship()
 
 }
 
-void Spaceship::Initialise(Vector2D initialPosition, float initialSize, ObjectManager* p_TheObjectManager)
+void Spaceship::Initialise(Vector2D initialPosition, float initialSize, bool isCollidable, ObjectManager* p_TheObjectManager)
 {
 	objectActive = true;
 	position = initialPosition;
 	size = initialSize;
 	imageScale = initialSize / bmpRadius;
+	canCollide = isCollidable;
 	velocity.set (0.0f,0.0f);
 	LoadImage(L"ship.bmp");
 
@@ -64,7 +65,7 @@ void Spaceship::Update(float frameTime)
 	}
 
 	//calculating friction and momentum
-	Vector2D friction = -0.5 * velocity;
+	Vector2D friction = -0.5f * velocity;
 	velocity = velocity + friction * frameTime;
 
 	//updating position based on velocity + friction
@@ -81,11 +82,11 @@ void Spaceship::Update(float frameTime)
 		Vector2D bulletLaunchPosition;
 
 		//setting bearings for where it comes from and how fast it goes
-		bulletLaunchPosition.setBearing(angle, size*1.5);
+		bulletLaunchPosition.setBearing(angle, size*1.5f);
 		bulletVelocity.setBearing(angle, 500.0f); //500 magnitude for the bullet = fast shooting. and at angle ship is currently facing
 
 		//initialise the bullet
-		pTheBullet->Initialise(position+bulletLaunchPosition, 4.0f, bulletVelocity);
+		pTheBullet->Initialise(position+bulletLaunchPosition, 4.0f, bulletVelocity, true);
 
 		//if the object manager is there then add the bullet to it
 		if (pTheObjectManager)
@@ -128,6 +129,10 @@ void Spaceship::ProcessCollision(GameObject& collidedWith)
 	if (typeid(collidedWith) == typeid(Rock))
 	{
 		Deactivate(); // if the spaceship crashes into asteroid then it dies
+
+		Explosion* pTheExplosion = new Explosion();
+		pTheExplosion->Initialise(position, false, size);
+		pTheObjectManager->AddObject(pTheExplosion);
 	}
 }
 

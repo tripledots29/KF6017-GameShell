@@ -20,6 +20,7 @@ protected:
 	PictureIndex pic;
 	SoundIndex sound;
 	bool objectActive;
+	bool canCollide; 
 	//ObjectType type;
 
 
@@ -32,8 +33,9 @@ public:
 	void PlaySound(const wchar_t filename[]);
 	bool IsActive() const;
 	void Deactivate();
-	void Render();
-	void SetScale(float scale);
+	virtual void Render();
+	//void SetScale(float scale);
+	bool getCollide();
 	virtual void Update(float frameTime) = 0;
 	virtual IShape2D& GetShape() = 0;
 	virtual void ProcessCollision(GameObject& collidedWith);

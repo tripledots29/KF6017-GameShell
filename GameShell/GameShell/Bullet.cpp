@@ -3,7 +3,8 @@
 Bullet::Bullet()
 {
 	objectActive = false;
-	timer = 2.0f;
+
+	lifeTimer = 2.0f;
 	bmpRadius = 4.0f;
 }
 
@@ -13,12 +14,13 @@ Bullet::~Bullet()
 }
 
 
-void Bullet::Initialise(Vector2D initialPosition, float initialSize, Vector2D initialVelocity)
+void Bullet::Initialise(Vector2D initialPosition, float initialSize, Vector2D initialVelocity, bool isCollidable)
 {
 	objectActive = true;
 	position = initialPosition;
 	velocity = initialVelocity;
 	size = initialSize;
+	canCollide = isCollidable;
 	imageScale = initialSize / bmpRadius;
 	LoadImage(L"bullet.bmp");
 	PlaySound(L"shoot.wav");
@@ -31,9 +33,9 @@ void Bullet::Update(float frameTime)
 
 	position = position + velocity * frameTime;
 
-	if (timer > 0)
+	if (lifeTimer > 0)
 	{
-		timer = timer - frameTime; //timer is how long it takes in seconds for a bullet to "disappear" (become inactive)
+		lifeTimer = lifeTimer - frameTime; //timer is how long it takes in seconds for a bullet to "disappear" (become inactive)
 	}
 	else
 	{

@@ -69,13 +69,16 @@ void ObjectManager::CheckAllCollisions()
 	std::list<GameObject*>::iterator it2;
 	for (it1 = pObjectList.begin(); it1 != pObjectList.end(); it1++)
 	{
-		for (it2 = std::next(it1); it2 != pObjectList.end(); it2++)
+		if ((*it1)->getCollide() == true)
 		{
-			if ((*it1) && (*it2) && ((*it1)->GetShape().Intersects((*it2)->GetShape())))
+			for (it2 = std::next(it1); it2 != pObjectList.end(); it2++)
 			{
-				(*it1)->ProcessCollision(**it2);
-				(*it2)->ProcessCollision(**it1);
+				if (((*it2)->getCollide() == true) &&(*it1) && (*it2) && ((*it1)->GetShape().Intersects((*it2)->GetShape())))
+				{
+					(*it1)->ProcessCollision(**it2);
+					(*it2)->ProcessCollision(**it1);
 
+				}
 			}
 		}
 	}
