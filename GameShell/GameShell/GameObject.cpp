@@ -20,7 +20,7 @@ void GameObject::PlaySound(const wchar_t filename[])
 {
 	MySoundEngine* pSE = MySoundEngine::GetInstance();
 	sound = pSE->LoadWav(filename);
-	pSE->Play(sound); //ASK CHRIS WHY THIS IS UNDERLINED
+	pSE->Play(sound); 
 
 }
 

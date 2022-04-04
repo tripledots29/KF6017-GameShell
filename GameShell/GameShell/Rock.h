@@ -10,12 +10,10 @@ private:
 	Circle2D collisionShape;
 	bool splittable;
 
-	ObjectManager* pTheObjectManager;
-
 public:
 	Rock();
 	~Rock();
-	void Initialise(Vector2D initialPosition, Vector2D initialVecolity, float initialSize, bool isSplittable, bool isCollidable, ObjectManager* p_TheObjectManager);
+	void Initialise(Vector2D initialPosition, Vector2D initialVelocity, float initialSize, bool isSplittable, bool isCollidable) override;
 	void Update(float frameTime) override;
 	IShape2D& GetShape() override;
 	void ProcessCollision(GameObject& collidedWith) override;

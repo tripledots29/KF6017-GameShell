@@ -4,7 +4,6 @@ Spaceship::Spaceship()
 {
 	objectActive = false;
 
-	pTheObjectManager = 0;
 	bmpRadius = 32.0f;
 
 	//type = ObjectType::SPACESHIP;
@@ -15,7 +14,7 @@ Spaceship::~Spaceship()
 
 }
 
-void Spaceship::Initialise(Vector2D initialPosition, float initialSize, bool isCollidable, ObjectManager* p_TheObjectManager)
+void Spaceship::Initialise(Vector2D initialPosition, Vector2D initialVelocity, float initialSize, bool isSplittable, bool isCollidable)
 {
 	objectActive = true;
 	position = initialPosition;
@@ -25,7 +24,6 @@ void Spaceship::Initialise(Vector2D initialPosition, float initialSize, bool isC
 	velocity.set (0.0f,0.0f);
 	LoadImage(L"ship.bmp");
 
-	pTheObjectManager = p_TheObjectManager;
 }
 
 
@@ -75,7 +73,9 @@ void Spaceship::Update(float frameTime)
 	if ((pInputs->KeyPressed(DIK_SPACE)) && (shootDelay < 0))
 	{
 		//create a new rock
-		Bullet* pTheBullet = new Bullet();
+		//Bullet* pTheBullet = new Bullet();
+		
+		GameObject* pTheBullet = TheObjectManager.Create(L"Bullet");
 
 		//bullet's data
 		Vector2D bulletVelocity;
@@ -86,10 +86,10 @@ void Spaceship::Update(float frameTime)
 		bulletVelocity.setBearing(angle, 500.0f); //500 magnitude for the bullet = fast shooting. and at angle ship is currently facing
 
 		//initialise the bullet
-		pTheBullet->Initialise(position+bulletLaunchPosition, 4.0f, bulletVelocity, true);
+		pTheBullet->Initialise(position+bulletLaunchPosition, bulletVelocity, 4.0f, false, true);
 
 		// add the bullet to object manager
-		pTheObjectManager->AddObject(pTheBullet);
+		//pTheObjectManager->AddObject(pTheBullet);
 
 		shootDelay = shootDelayDefault; //reset shootDelay back to default value. value = how many seconds a bullet replenishes
 	}
@@ -122,9 +122,9 @@ void Spaceship::ProcessCollision(GameObject& collidedWith)
 	{
 		Deactivate(); // if the spaceship crashes into asteroid then it dies
 
-		Explosion* pTheExplosion = new Explosion();
-		pTheExplosion->Initialise(position, false, size);
-		pTheObjectManager->AddObject(pTheExplosion);
+		//Explosion* pTheExplosion = new Explosion();
+		//pTheExplosion->Initialise(position, false, size);
+		//pTheObjectManager->AddObject(pTheExplosion);
 	}
 }
 

@@ -1,8 +1,10 @@
 #pragma once
 #include <list>
 #include "GameObject.h"
-
-
+#include "Bullet.h"
+#include "Explosion.h"
+#include "Rock.h"
+#include "Spaceship.h"
 class ObjectManager
 {
 protected:
@@ -13,6 +15,7 @@ public:
 	~ObjectManager();
 
 	void AddObject(GameObject* pNewObject);
+	GameObject* Create(std::wstring name);
 	void UpdateAll(float frameTime);
 	void RenderAll();
 	void DeleteAllInactive();

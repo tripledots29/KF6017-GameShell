@@ -12,7 +12,7 @@ private:
 public:
 	Bullet();
 	~Bullet();
-	void Initialise(Vector2D initialPosition, float initialSize, Vector2D initialVelocity, bool isCollidable);
+	void Initialise(Vector2D initialPosition, Vector2D initialVelocity, float initialSize, bool isSplittable, bool isCollidable) override;
 	void Update(float frameTime) override;
 	IShape2D& GetShape() override;
 	void ProcessCollision(GameObject& collidedWith) override;

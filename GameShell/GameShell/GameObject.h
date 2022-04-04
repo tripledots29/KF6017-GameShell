@@ -6,8 +6,7 @@
 #include "gametimer.h"
 #include "Shapes.h"
 #include <typeinfo>
-
-//enum class ObjectType{UNKNOWN, SPACESHIP, ROCK, BULLET};
+#include "ObjectManager.h"
 
 class GameObject
 {
@@ -20,8 +19,9 @@ protected:
 	PictureIndex pic;
 	SoundIndex sound;
 	bool objectActive;
-	bool canCollide; 
-	//ObjectType type;
+	bool canCollide = true; 
+	bool isSplittable = false;
+	ObjectManager TheObjectManager;
 
 
 public:
@@ -33,6 +33,7 @@ public:
 	void PlaySound(const wchar_t filename[]);
 	bool IsActive() const;
 	void Deactivate();
+	virtual void Initialise(Vector2D initialPosition, Vector2D initialVelocity, float initialSize, bool isSplittable, bool isCollidable)  = 0;
 	virtual void Render();
 	//void SetScale(float scale);
 	bool getCollide();
@@ -40,6 +41,5 @@ public:
 	virtual void Update(float frameTime) = 0;
 	virtual IShape2D& GetShape() = 0;
 	virtual void ProcessCollision(GameObject& collidedWith);
-	//const type_info& GetType(); //try this next workshop
-	//ObjectType GetType() const;
+
 };

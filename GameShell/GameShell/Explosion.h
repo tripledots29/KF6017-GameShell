@@ -13,7 +13,7 @@ private:
 public:
 	Explosion();
 	~Explosion();
-	void Initialise(Vector2D initialPosition, bool isCollidable, float initialSize);
+	void Initialise(Vector2D initialPosition, Vector2D initialVelocity, float initialSize, bool isSplittable, bool isCollidable) override;
 	void Render() override;
 	void Update(float frameTime) override;
 	IShape2D& GetShape() override;

@@ -1,5 +1,6 @@
 #include "ObjectManager.h"
 
+
 ObjectManager::ObjectManager()
 {
 
@@ -14,6 +15,46 @@ void ObjectManager::AddObject(GameObject* pNewObject)
 {
 	pObjectList.push_back(pNewObject);
 }
+
+GameObject* ObjectManager::Create(std::wstring name)
+{
+	GameObject* pNewObject = nullptr;
+
+	if (name == L"Bullet")
+	{
+		pNewObject = new Bullet();
+	}
+
+	else if (name == L"Explosion")
+	{
+		pNewObject = new Explosion();
+	}
+
+	else if (name == L"Rock")
+	{
+		pNewObject = new Rock();
+	}
+
+	else if (name == L"Spaceship")
+	{
+		pNewObject = new Spaceship();
+	}
+
+	else
+	{
+		ErrorLogger::Write(L"Could not create item: ");
+		ErrorLogger::Writeln(name.c_str());
+	}
+
+	if (pNewObject)
+	{
+		AddObject(pNewObject);
+	}
+
+	return pNewObject;
+
+}
+
 
 void ObjectManager::UpdateAll(float frameTime)
 {

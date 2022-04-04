@@ -11,7 +11,7 @@ Explosion::~Explosion()
 
 }
 
-void Explosion::Initialise(Vector2D initialPosition, bool isCollidable, float initialSize)
+void Explosion::Initialise(Vector2D initialPosition, Vector2D initialVelocity, float initialSize, bool isSplittable, bool isCollidable)
 {
 	objectActive = true;
 	position = initialPosition;

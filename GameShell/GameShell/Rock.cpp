@@ -5,7 +5,6 @@ Rock::Rock()
 {
 	objectActive = false;
 
-	pTheObjectManager = 0;
 	bmpRadius = 64.0f;
 }
 
@@ -15,7 +14,7 @@ Rock::~Rock()
 }
 
 
-void Rock::Initialise(Vector2D initialPosition, Vector2D initialVelocity, float initialSize, bool isSplittable, bool isCollidable, ObjectManager* p_TheObjectManager)
+void Rock::Initialise(Vector2D initialPosition, Vector2D initialVelocity, float initialSize, bool isSplittable, bool isCollidable)
 {
 	objectActive = true;
 	position = initialPosition;
@@ -28,7 +27,6 @@ void Rock::Initialise(Vector2D initialPosition, Vector2D initialVelocity, float 
 
 	LoadImage(L"rock1.bmp");
 
-	pTheObjectManager = p_TheObjectManager;
 }
 
 void Rock::Update(float frameTime)
@@ -68,7 +66,7 @@ void Rock::ProcessCollision(GameObject& collidedWith)
 			Deactivate();
 
 			Explosion* pTheExplosion = new Explosion();
-			pTheExplosion->Initialise(position, false, size);
+			pTheExplosion->Initialise(position, Vector2D(0,0), size, false, false);
 			pTheObjectManager->AddObject(pTheExplosion);
 
 
@@ -82,7 +80,7 @@ void Rock::ProcessCollision(GameObject& collidedWith)
 				Vector2D vel(rand() % 200 + (-100), rand() % 200 + (-100));
 
 				//initalise it
-				pRock->Initialise(pos, vel, size/2, false, true, pTheObjectManager);
+				pRock->Initialise(pos, vel, size/2, false, true);
 
 				//if the object manager is there then add the new rocks to it
 				if (pTheObjectManager)
@@ -97,7 +95,7 @@ void Rock::ProcessCollision(GameObject& collidedWith)
 			Deactivate();
 
 			Explosion* pTheExplosion = new Explosion();
-			pTheExplosion->Initialise(position, false, size);
+			pTheExplosion->Initialise(position, Vector2D(0, 0), size, false, false);
 			pTheObjectManager->AddObject(pTheExplosion);
 		}
 	}

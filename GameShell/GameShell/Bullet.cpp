@@ -14,7 +14,7 @@ Bullet::~Bullet()
 }
 
 
-void Bullet::Initialise(Vector2D initialPosition, float initialSize, Vector2D initialVelocity, bool isCollidable)
+void Bullet::Initialise(Vector2D initialPosition, Vector2D initialVelocity, float initialSize, bool isSplittable, bool isCollidable)
 {
 	objectActive = true;
 	position = initialPosition;

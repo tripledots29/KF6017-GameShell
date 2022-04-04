@@ -13,13 +13,12 @@ private:
 	float shootDelay = shootDelayDefault;
 	Circle2D collisionShape;
 
-	ObjectManager* pTheObjectManager;
 
 
 public:
 	Spaceship();
 	~Spaceship();
-	void Initialise(Vector2D initialPosition, float initialSize, bool isCollidable, ObjectManager* p_TheObjectManager);
+	void Initialise(Vector2D initialPosition, Vector2D initialVelocity, float initialSize, bool isSplittable, bool isCollidable) override;
 	void Update(float frameTime) override;
 	IShape2D& GetShape() override;
 	void ProcessCollision(GameObject& collidedWith) override;

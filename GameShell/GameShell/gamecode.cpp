@@ -284,11 +284,10 @@ ErrorType Game::StartOfGame()
    // **********************************************************************
 	
 	//Setting up spaceship
-	Spaceship* pTheSpaceShip = new Spaceship() ;
-	pTheSpaceShip->Initialise(Vector2D (20.0f,20.0f), 32.0f, true, &TheObjectManager);
-	TheObjectManager.AddObject(pTheSpaceShip);
+	GameObject* pTheSpaceShip = TheObjectManager.Create(L"Spaceship");
+	pTheSpaceShip->Initialise(Vector2D (20.0f,20.0f), Vector2D(20.0f, 20.0f), 32.0f, false, true);
 
-
+	/*
 	//Setting up 5 rocks
 	for (int i = 0; i < 15; i++)
 	{
@@ -300,7 +299,7 @@ ErrorType Game::StartOfGame()
 	    pTheRock->Initialise(pos, vel, 64.0f, true, true, &TheObjectManager);
 		TheObjectManager.AddObject(pTheRock);
 	}
-
+	*/
 
 
 	gt.mark();
@@ -341,7 +340,7 @@ ErrorType Game::Update()
 	TheObjectManager.DeleteAllInactive();
 	TheObjectManager.CheckAllCollisions();
 
-	//MyDrawEngine::GetInstance()->theCamera.PlaceAt(Vector2D((1000) + (gt.mdFrameTime*5), 0));
+	//MyDrawEngine::GetInstance()->theCamera.PlaceAt(Vector2D(gt.mdFrameTime*1000, 0));
 
 
    // *********************************************************************
