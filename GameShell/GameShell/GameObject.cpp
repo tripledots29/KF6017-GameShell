@@ -54,6 +54,11 @@ bool GameObject::getCollide()
 	return canCollide;
 }
 
+Vector2D GameObject::getPosition()
+{
+	return position;
+}
+
 void GameObject::ProcessCollision(GameObject& collidedWith)
 {
 	Deactivate();

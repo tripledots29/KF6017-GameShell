@@ -4,7 +4,7 @@ Bullet::Bullet()
 {
 	objectActive = false;
 
-	lifeTimer = 2.0f;
+	lifeTimer = 10.0f;
 	bmpRadius = 4.0f;
 }
 

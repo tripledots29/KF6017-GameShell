@@ -1,14 +1,6 @@
-﻿  Explosion.cpp
-  Rock.cpp
-C:\Users\student\Documents\GitHub\KF6017-GameShell\GameShell\GameShell\Rock.cpp(91,72): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\student\Documents\GitHub\KF6017-GameShell\GameShell\GameShell\Rock.cpp(91,53): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\student\Documents\GitHub\KF6017-GameShell\GameShell\GameShell\Rock.cpp(92,54): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\student\Documents\GitHub\KF6017-GameShell\GameShell\GameShell\Rock.cpp(92,31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  gamecode.cpp
-C:\Users\student\Documents\GitHub\KF6017-GameShell\GameShell\GameShell\gamecode.cpp(298,52): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\student\Documents\GitHub\KF6017-GameShell\GameShell\GameShell\gamecode.cpp(299,47): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\student\Documents\GitHub\KF6017-GameShell\GameShell\GameShell\gamecode.cpp(299,24): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\student\Documents\GitHub\KF6017-GameShell\GameShell\GameShell\gamecode.cpp(339,31): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  spaceship.cpp
-  Generating Code...
-  GameShell.vcxproj -> C:\Users\student\Documents\GitHub\KF6017-GameShell\GameShell\Debug\GameShell.exe
+﻿  Rock.cpp
+S:\uni\year 3\KF6017 - Software Architecture for Games\GitHub - Assessment\KF6017-GameShell\GameShell\GameShell\Rock.cpp(81,72): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+S:\uni\year 3\KF6017 - Software Architecture for Games\GitHub - Assessment\KF6017-GameShell\GameShell\GameShell\Rock.cpp(81,53): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+S:\uni\year 3\KF6017 - Software Architecture for Games\GitHub - Assessment\KF6017-GameShell\GameShell\GameShell\Rock.cpp(82,54): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+S:\uni\year 3\KF6017 - Software Architecture for Games\GitHub - Assessment\KF6017-GameShell\GameShell\GameShell\Rock.cpp(82,31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  GameShell.vcxproj -> S:\uni\year 3\KF6017 - Software Architecture for Games\GitHub - Assessment\KF6017-GameShell\GameShell\Debug\GameShell.exe

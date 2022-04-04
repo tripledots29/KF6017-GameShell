@@ -36,6 +36,7 @@ public:
 	virtual void Render();
 	//void SetScale(float scale);
 	bool getCollide();
+	Vector2D getPosition();
 	virtual void Update(float frameTime) = 0;
 	virtual IShape2D& GetShape() = 0;
 	virtual void ProcessCollision(GameObject& collidedWith);

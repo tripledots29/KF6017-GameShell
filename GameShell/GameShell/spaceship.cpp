@@ -88,24 +88,15 @@ void Spaceship::Update(float frameTime)
 		//initialise the bullet
 		pTheBullet->Initialise(position+bulletLaunchPosition, 4.0f, bulletVelocity, true);
 
-		//if the object manager is there then add the bullet to it
-		if (pTheObjectManager)
-		{
-			pTheObjectManager->AddObject(pTheBullet);
-		}
+		// add the bullet to object manager
+		pTheObjectManager->AddObject(pTheBullet);
+
 		shootDelay = shootDelayDefault; //reset shootDelay back to default value. value = how many seconds a bullet replenishes
 	}
 	shootDelay = shootDelay - frameTime; //every frame take away until delay hits 0
 
 	//wrap around
-	if (position.XValue > 1800.0f) //horizontal size is -1800-1800
-	{
-		position.XValue = -1800.0f;
-	}
-	if (position.XValue < -1800.0f) //horizontal size is -1800-1800
-	{
-		position.XValue = 1800.0f;
-	}
+	
 	if (position.YValue > 1000.0f) //vertical size is -1000-1000
 	{
 		position.YValue = -1000.0f;
@@ -114,6 +105,7 @@ void Spaceship::Update(float frameTime)
 	{
 		position.YValue = 1000.0f;
 	}
+	
 
 }
 

@@ -29,6 +29,8 @@ void ObjectManager::UpdateAll(float frameTime)
 void ObjectManager::RenderAll()
 {
 	MyDrawEngine::GetInstance()->WriteInt(50, 50, pObjectList.size(), MyDrawEngine::GREEN);
+	MyDrawEngine::GetInstance()->WriteText(500, 60, L"Score", MyDrawEngine::WHITE);
+
 
 	for (GameObject* pNext : pObjectList)
 	{
@@ -73,7 +75,7 @@ void ObjectManager::CheckAllCollisions()
 		{
 			for (it2 = std::next(it1); it2 != pObjectList.end(); it2++)
 			{
-				if (((*it2)->getCollide() == true) &&(*it1) && (*it2) && ((*it1)->GetShape().Intersects((*it2)->GetShape())))
+				if (((*it2)->getCollide() == true) && (*it1) && (*it2) && ((*it1)->GetShape().Intersects((*it2)->GetShape())))
 				{
 					(*it1)->ProcessCollision(**it2);
 					(*it2)->ProcessCollision(**it1);

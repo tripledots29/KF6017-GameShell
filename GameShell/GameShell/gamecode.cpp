@@ -290,7 +290,7 @@ ErrorType Game::StartOfGame()
 
 
 	//Setting up 5 rocks
-	for (int i = 0; i < 6; i++)
+	for (int i = 0; i < 15; i++)
 	{
 		Rock* pTheRock = new Rock();
 		Vector2D pos;
@@ -335,12 +335,13 @@ ErrorType Game::Update()
 	
 	gt.mark();
 
-
+	
 	TheObjectManager.UpdateAll(gt.mdFrameTime);
 	TheObjectManager.RenderAll();
 	TheObjectManager.DeleteAllInactive();
 	TheObjectManager.CheckAllCollisions();
 
+	//MyDrawEngine::GetInstance()->theCamera.PlaceAt(Vector2D((1000) + (gt.mdFrameTime*5), 0));
 
 
    // *********************************************************************

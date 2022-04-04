@@ -41,14 +41,7 @@ void Rock::Update(float frameTime)
 
 
 	//wrap around
-	if (position.XValue > 1800.0f) //horizontal size is -1800-1800
-	{
-		position.XValue = -1800.0f;
-	}
-	if (position.XValue < -1800.0f) //horizontal size is -1800-1800
-	{
-		position.XValue = 1800.0f;
-	}
+	
 	if (position.YValue > 1000.0f) //vertical size is -1000-1000
 	{
 		position.YValue = -1000.0f;
@@ -57,10 +50,7 @@ void Rock::Update(float frameTime)
 	{
 		position.YValue = 1000.0f;
 	}
-
-
-
-
+	
 }
 
 
@@ -109,6 +99,16 @@ void Rock::ProcessCollision(GameObject& collidedWith)
 			Explosion* pTheExplosion = new Explosion();
 			pTheExplosion->Initialise(position, false, size);
 			pTheObjectManager->AddObject(pTheExplosion);
+		}
+	}
+
+	if (typeid(collidedWith) == typeid(Rock))
+	{
+		Vector2D normal = (position - collidedWith.getPosition()).unitVector();
+		if (normal * velocity < 0)
+		{
+			velocity = velocity - 2 * (velocity * normal) * normal;
+			velocity = 0.8f * velocity;
 		}
 	}
 }
