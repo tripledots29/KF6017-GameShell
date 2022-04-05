@@ -1,14 +1,15 @@
 #include "ObjectManager.h"
-
+#include "GameObject.h"
 
 ObjectManager::ObjectManager()
 {
-
+	GameObject::SetObjectManager(this);
 }
 
 ObjectManager::~ObjectManager()
 {
 	DeleteAllEnd();
+	GameObject::SetObjectManager(nullptr);
 }
 
 void ObjectManager::AddObject(GameObject* pNewObject)
@@ -16,26 +17,26 @@ void ObjectManager::AddObject(GameObject* pNewObject)
 	pObjectList.push_back(pNewObject);
 }
 
-GameObject* ObjectManager::Create(std::wstring name)
+GameObject* ObjectManager::Create(ObjectType type)
 {
 	GameObject* pNewObject = nullptr;
 
-	if (name == L"Bullet")
+	if (type == ObjectType::BULLET)
 	{
 		pNewObject = new Bullet();
 	}
 
-	else if (name == L"Explosion")
+	else if (type == ObjectType::EXPLOSION)
 	{
 		pNewObject = new Explosion();
 	}
 
-	else if (name == L"Rock")
+	else if (type == ObjectType::ROCK)
 	{
 		pNewObject = new Rock();
 	}
 
-	else if (name == L"Spaceship")
+	else if (type == ObjectType::SPACESHIP)
 	{
 		pNewObject = new Spaceship();
 	}
@@ -43,7 +44,7 @@ GameObject* ObjectManager::Create(std::wstring name)
 	else
 	{
 		ErrorLogger::Write(L"Could not create item: ");
-		ErrorLogger::Writeln(name.c_str());
+		//ErrorLogger::Writeln(tostring(type));
 	}
 
 	if (pNewObject)
@@ -53,6 +54,17 @@ GameObject* ObjectManager::Create(std::wstring name)
 
 	return pNewObject;
 
+}
+
+void ObjectManager::SendMessage(Message msg)
+{
+	for (GameObject* pNext : pObjectList)
+	{
+		if (pNext)
+		{
+			pNext->HandleMessage(msg);
+		}
+	}
 }
 
 

@@ -1,10 +1,10 @@
 #include "Bullet.h"
 
-Bullet::Bullet()
+Bullet::Bullet() :GameObject(ObjectType::BULLET)
 {
 	objectActive = false;
 
-	lifeTimer = 10.0f;
+	lifeTimer = 5.0f;
 	bmpRadius = 4.0f;
 }
 

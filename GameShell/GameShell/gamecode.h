@@ -11,7 +11,7 @@
 #include "mydrawengine.h"
 #include "gametimer.h"
 #include "ObjectManager.h"
-
+#include "SoundFX.h"
 
 // This is a hack for reading keyboard in situations where you don't want to
 // use a full input system.
@@ -37,6 +37,8 @@ private:
 	void ChangeState(GameState newState);  // Use to change the state of the game to one of the states above
 	
 	ObjectManager TheObjectManager;
+
+	SoundFX TheSoundFX;
 	
 
 	int m_menuOption;              // Tracks the currently selected menu option, during main or pause menu

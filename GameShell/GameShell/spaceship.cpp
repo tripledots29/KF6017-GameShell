@@ -1,6 +1,6 @@
 #include "spaceship.h"
 
-Spaceship::Spaceship()
+Spaceship::Spaceship():GameObject(ObjectType::SPACESHIP)
 {
 	objectActive = false;
 
@@ -14,8 +14,11 @@ Spaceship::~Spaceship()
 
 }
 
+const float MAXDEVIATION = 2.0f;
+
 void Spaceship::Initialise(Vector2D initialPosition, Vector2D initialVelocity, float initialSize, bool isSplittable, bool isCollidable)
 {
+	angle = 3.1420f / 2 ;
 	objectActive = true;
 	position = initialPosition;
 	size = initialSize;
@@ -23,7 +26,6 @@ void Spaceship::Initialise(Vector2D initialPosition, Vector2D initialVelocity, f
 	canCollide = isCollidable;
 	velocity.set (0.0f,0.0f);
 	LoadImage(L"ship.bmp");
-
 }
 
 
@@ -36,31 +38,35 @@ void Spaceship::Update(float frameTime)
 	MyInputs* pInputs = MyInputs::GetInstance();
 	pInputs->SampleKeyboard();
 
-	//key inputs for movement
-	if ((pInputs->KeyPressed(DIK_UP)) || (pInputs->KeyPressed(DIK_W)))
-	{
-		Vector2D acceleration;
-		acceleration.setBearing(angle, 500.0f);
-		velocity = velocity + acceleration * frameTime;
-	}
+	Vector2D acceleration;
+	acceleration.setBearing(angle, 200.0f);
 
-	if ((pInputs->KeyPressed(DIK_DOWN)) || (pInputs->KeyPressed(DIK_S)))
+	//key inputs for movement
+	if ((pInputs->KeyPressed(DIK_RIGHT)) || (pInputs->KeyPressed(DIK_D)))
 	{
-		Vector2D acceleration;
-		acceleration.setBearing(angle, -500.0f);
-		velocity = velocity + acceleration * frameTime;
+		acceleration.setBearing(angle, 500.0f);
+
 	}
+	
+	if ((pInputs->KeyPressed(DIK_LEFT)) || (pInputs->KeyPressed(DIK_A)))
+	{
+		acceleration.setBearing(angle, 100.0f);
+	}
+	
+	velocity = velocity + acceleration * frameTime;
 
 	//key inputs for rotating
-	if ((pInputs->KeyPressed(DIK_LEFT)) || (pInputs->KeyPressed(DIK_A)))
+	if ((pInputs->KeyPressed(DIK_UP)) || (pInputs->KeyPressed(DIK_W)))
 	{
 		angle = angle - 2.0f * frameTime;
 	}
 
-	if ((pInputs->KeyPressed(DIK_RIGHT)) || (pInputs->KeyPressed(DIK_D)))
+	if ((pInputs->KeyPressed(DIK_DOWN)) || (pInputs->KeyPressed(DIK_S)))
 	{
 		angle = angle + 2.0f * frameTime;
 	}
+
+	angle = angle - (angle - 3.14f / 2) * MAXDEVIATION * frameTime; 
 
 	//calculating friction and momentum
 	Vector2D friction = -0.5f * velocity;
@@ -75,7 +81,7 @@ void Spaceship::Update(float frameTime)
 		//create a new rock
 		//Bullet* pTheBullet = new Bullet();
 		
-		GameObject* pTheBullet = TheObjectManager.Create(L"Bullet");
+		GameObject* pTheBullet = pTheObjectManager->Create(ObjectType::BULLET);
 
 		//bullet's data
 		Vector2D bulletVelocity;
@@ -83,7 +89,7 @@ void Spaceship::Update(float frameTime)
 
 		//setting bearings for where it comes from and how fast it goes
 		bulletLaunchPosition.setBearing(angle, size*1.5f);
-		bulletVelocity.setBearing(angle, 500.0f); //500 magnitude for the bullet = fast shooting. and at angle ship is currently facing
+		bulletVelocity.setBearing(angle, 1000.0f); //500 magnitude for the bullet = fast shooting. and at angle ship is currently facing
 
 		//initialise the bullet
 		pTheBullet->Initialise(position+bulletLaunchPosition, bulletVelocity, 4.0f, false, true);
@@ -106,10 +112,28 @@ void Spaceship::Update(float frameTime)
 		position.YValue = 1000.0f;
 	}
 	
+	MyDrawEngine::GetInstance()->theCamera.PlaceAt(Vector2D((position.XValue+500), 0));
+
+
+	invDelay = invDelay - frameTime; //every frame take away until delay hits 0
+
+	MyDrawEngine::GetInstance()->WriteInt(400, 400, health, MyDrawEngine::GREEN);
 
 }
 
-
+void Spaceship::TakeDamage(int amount)
+{
+	health = health - amount;
+	if (health <= 0)
+	{
+		Deactivate();
+		Message m;
+		m.type = EventType::OBJECT_DESTROYED;
+		m.location = position;
+		m.pSource = this;
+		pTheObjectManager->SendMessage(m);
+	}
+}
 
 IShape2D& Spaceship::GetShape()
 {
@@ -118,13 +142,14 @@ IShape2D& Spaceship::GetShape()
 
 void Spaceship::ProcessCollision(GameObject& collidedWith)
 {
-	if (typeid(collidedWith) == typeid(Rock))
+	if (typeid(collidedWith) == typeid(Rock) && invDelay < 0)
 	{
-		Deactivate(); // if the spaceship crashes into asteroid then it dies
+		invDelay = invDelayDefault;
+		TakeDamage(collidedWith.GetSize()/5);
+		GameObject* pTheExplosion = pTheObjectManager->Create(ObjectType::EXPLOSION); 
+		pTheExplosion->Initialise(position, Vector2D(0,0), size, false, false);
 
-		//Explosion* pTheExplosion = new Explosion();
-		//pTheExplosion->Initialise(position, false, size);
-		//pTheObjectManager->AddObject(pTheExplosion);
 	}
+
 }
 

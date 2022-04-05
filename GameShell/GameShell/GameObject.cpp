@@ -1,6 +1,9 @@
 #include "GameObject.h"
+#include "ObjectManager.h"
 
-GameObject::GameObject()
+ObjectManager* GameObject::pTheObjectManager = nullptr;
+
+GameObject::GameObject(ObjectType type):TYPE(type)
 {
 
 }
@@ -8,6 +11,11 @@ GameObject::GameObject()
 GameObject::~GameObject()
 {
 
+}
+
+void GameObject::SetObjectManager(ObjectManager* pObjectManager)
+{
+	pTheObjectManager = pObjectManager;
 }
 
 void GameObject::LoadImage(const wchar_t filename[])
@@ -34,6 +42,11 @@ void GameObject::Deactivate()
 	objectActive = false;
 }
 
+void GameObject::HandleMessage(Message& msg)
+{
+	//Default handling of a message is to do nothing
+}
+
 void GameObject::Render()
 {
 	if (objectActive)
@@ -42,12 +55,22 @@ void GameObject::Render()
 	}
 }
 
+float GameObject::GetSize()
+{
+	return size;
+}
+
 /*
 void GameObject::SetScale(float scale)
 {
 	imageScale = scale;
 }
 */
+
+ObjectType GameObject::getType() const
+{
+	return TYPE;
+}
 
 bool GameObject::getCollide()
 {

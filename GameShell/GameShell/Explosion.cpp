@@ -1,6 +1,6 @@
 #include "Explosion.h"
 
-Explosion::Explosion()
+Explosion::Explosion() :GameObject(ObjectType::EXPLOSION)
 {
 	objectActive = false;
 	bmpRadius = 32.0f;
