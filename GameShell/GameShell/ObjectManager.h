@@ -4,6 +4,8 @@
 #include "Explosion.h"
 #include "Rock.h"
 #include "Spaceship.h"
+#include "Enemy.h"
+#include "LevelManager.h"
 #include "ObjectType.h"
 #include "Message.h"
 

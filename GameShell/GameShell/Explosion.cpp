@@ -1,4 +1,5 @@
 #include "Explosion.h"
+#include "SoundFX.h"
 
 Explosion::Explosion() :GameObject(ObjectType::EXPLOSION)
 {
@@ -29,8 +30,11 @@ void Explosion::Initialise(Vector2D initialPosition, Vector2D initialVelocity, f
 	images[5] = MyDrawEngine::GetInstance()->LoadPicture(L"explosion6.bmp");
 	images[6] = MyDrawEngine::GetInstance()->LoadPicture(L"explosion7.bmp");
 	images[7] = MyDrawEngine::GetInstance()->LoadPicture(L"explosion8.bmp");
-
-	PlaySound(L"explosion.wav");
+	
+	if (pTheSoundFX)
+	{
+		pTheSoundFX->PlayExplosion();
+	}
 }
 
 

@@ -1,9 +1,10 @@
 #pragma once
 #include "mysoundengine.h"
 
+
 class SoundFX
 {
-private:
+protected:
 	static const int NUMEXPLOSIONSOUNDS = 5;
 	SoundIndex m_Explosions[NUMEXPLOSIONSOUNDS];
 	SoundIndex m_Engine;

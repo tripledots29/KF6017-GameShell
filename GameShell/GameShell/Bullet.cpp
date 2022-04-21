@@ -1,4 +1,5 @@
 #include "Bullet.h"
+#include "SoundFX.h"
 
 Bullet::Bullet() :GameObject(ObjectType::BULLET)
 {
@@ -23,7 +24,10 @@ void Bullet::Initialise(Vector2D initialPosition, Vector2D initialVelocity, floa
 	canCollide = isCollidable;
 	imageScale = initialSize / bmpRadius;
 	LoadImage(L"bullet.bmp");
-	PlaySound(L"shoot.wav");
+	if (pTheSoundFX)
+	{
+		pTheSoundFX->PlayShot();
+	}
 }
 
 void Bullet::Update(float frameTime)

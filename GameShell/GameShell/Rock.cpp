@@ -91,6 +91,13 @@ void Rock::ProcessCollision(GameObject& collidedWith)
 {
 	if (typeid(collidedWith) == typeid(Bullet))
 	{
+		Message m;
+		m.type = EventType::ROCK_EXPLODE;
+		m.location = position;
+		m.pSource = this;
+		pTheObjectManager->SendMessage(m);
+
+
 		if (splittable == true)
 		{
 			Deactivate();

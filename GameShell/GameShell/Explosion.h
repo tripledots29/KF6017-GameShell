@@ -17,6 +17,6 @@ public:
 	void Render() override;
 	void Update(float frameTime) override;
 	IShape2D& GetShape() override;
-	//void ProcessCollision(GameObject* collidedWith) override;
+	//void ProcessCollision(GameObject& collidedWith) override;
 
 };

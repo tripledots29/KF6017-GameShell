@@ -3,7 +3,7 @@
 
 class GameObject;
 
-enum class EventType { OBJECT_DESTROYED, EXPLOSION_OCCUR, BULLET_FIRED, LEVEL_START };
+enum class EventType { OBJECT_DESTROYED, EXPLOSION_OCCUR, BULLET_FIRED, LEVEL_START, ROCK_EXPLODE };
 
 struct Message
 {

@@ -41,6 +41,16 @@ GameObject* ObjectManager::Create(ObjectType type)
 		pNewObject = new Spaceship();
 	}
 
+	else if (type == ObjectType::LEVELMANAGER)
+	{
+		pNewObject = new LevelManager();
+	}
+
+	else if (type == ObjectType::ENEMY)
+	{
+		pNewObject = new Enemy();
+	}
+
 	else
 	{
 		ErrorLogger::Write(L"Could not create item: ");

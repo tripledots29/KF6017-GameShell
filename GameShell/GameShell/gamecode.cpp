@@ -128,9 +128,6 @@ void Game::Shutdown()
    // Any clean up code here 
 
 
-
-
-
 	// (engines must be terminated last)
 	MyDrawEngine::Terminate();
 	MySoundEngine::Terminate();
@@ -279,25 +276,11 @@ ErrorType Game::StartOfGame()
    // Code to set up your game *********************************************
    // **********************************************************************
 	
-	//SoundFX* pTheSoundFX = new SoundFX();
-	//pTheSoundFX->LoadSounds();
+	TheSoundFX.LoadSounds();
+	TheLevelManager.StartLevel();
 
-	//Setting up spaceship
-	GameObject* pTheSpaceShip = TheObjectManager.Create(ObjectType::SPACESHIP);
-	pTheSpaceShip->Initialise(Vector2D (20.0f,20.0f), Vector2D(20.0f, 20.0f), 32.0f, false, true);
 
-	
-	//Setting up 15 rocks
-	for (int i = 0; i <15; i++)
-	{
-		GameObject* pTheRock = TheObjectManager.Create(ObjectType::ROCK);
-		Vector2D pos;
-		Vector2D vel;
-		pos.setBearing(rand() %628 / 100.0f, rand() %400 + 600.0f);
-		vel.set(rand() % 200 + (-100.0f), rand() % 200 + (-100.0f));
-	    pTheRock->Initialise(pos, vel, 64.0f, true, true);
-	}
-	
+
 
 	gt.mark();
 	gt.mark();
@@ -337,8 +320,6 @@ ErrorType Game::Update()
 	TheObjectManager.DeleteAllInactive();
 	TheObjectManager.CheckAllCollisions();
 
-	//MyDrawEngine::GetInstance()->theCamera.PlaceAt(Vector2D(gt.mdFrameTime*1000, 0));
-
 
    // *********************************************************************
    // *********************************************************************
@@ -357,6 +338,7 @@ ErrorType Game::EndOfGame()
    // *********************************************************************
 
 	TheObjectManager.DeleteAllEnd();
+	
 	
 	return SUCCESS;
 }

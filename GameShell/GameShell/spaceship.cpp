@@ -1,4 +1,5 @@
 #include "spaceship.h"
+#include "SoundFX.h"
 
 Spaceship::Spaceship():GameObject(ObjectType::SPACESHIP)
 {
@@ -45,12 +46,19 @@ void Spaceship::Update(float frameTime)
 	if ((pInputs->KeyPressed(DIK_RIGHT)) || (pInputs->KeyPressed(DIK_D)))
 	{
 		acceleration.setBearing(angle, 500.0f);
-
+		if (pTheSoundFX)
+		{
+			pTheSoundFX->StartPlayingEngineSound();
+		}
 	}
 	
 	if ((pInputs->KeyPressed(DIK_LEFT)) || (pInputs->KeyPressed(DIK_A)))
 	{
 		acceleration.setBearing(angle, 100.0f);
+		if (pTheSoundFX)
+		{
+			pTheSoundFX->StopPlayingEngineSound();
+		}
 	}
 	
 	velocity = velocity + acceleration * frameTime;
@@ -78,9 +86,7 @@ void Spaceship::Update(float frameTime)
 	//key inputs for shooting and shoot delays
 	if ((pInputs->KeyPressed(DIK_SPACE)) && (shootDelay < 0))
 	{
-		//create a new rock
-		//Bullet* pTheBullet = new Bullet();
-		
+	
 		GameObject* pTheBullet = pTheObjectManager->Create(ObjectType::BULLET);
 
 		//bullet's data
@@ -93,9 +99,6 @@ void Spaceship::Update(float frameTime)
 
 		//initialise the bullet
 		pTheBullet->Initialise(position+bulletLaunchPosition, bulletVelocity, 4.0f, false, true);
-
-		// add the bullet to object manager
-		//pTheObjectManager->AddObject(pTheBullet);
 
 		shootDelay = shootDelayDefault; //reset shootDelay back to default value. value = how many seconds a bullet replenishes
 	}
@@ -117,7 +120,7 @@ void Spaceship::Update(float frameTime)
 
 	invDelay = invDelay - frameTime; //every frame take away until delay hits 0
 
-	MyDrawEngine::GetInstance()->WriteInt(400, 400, health, MyDrawEngine::GREEN);
+	MyDrawEngine::GetInstance()->WriteInt(400, 400, int(health), MyDrawEngine::GREEN);
 
 }
 
@@ -145,10 +148,9 @@ void Spaceship::ProcessCollision(GameObject& collidedWith)
 	if (typeid(collidedWith) == typeid(Rock) && invDelay < 0)
 	{
 		invDelay = invDelayDefault;
-		TakeDamage(collidedWith.GetSize()/5);
+		TakeDamage(int(collidedWith.GetSize()/5));
 		GameObject* pTheExplosion = pTheObjectManager->Create(ObjectType::EXPLOSION); 
 		pTheExplosion->Initialise(position, Vector2D(0,0), size, false, false);
-
 	}
 
 }

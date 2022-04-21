@@ -1,14 +1,14 @@
 #include "SoundFX.h"
-
+#include "GameObject.h"
 
 SoundFX::SoundFX() 
 {
-
+	GameObject::SetSoundFX(this);
 }
 
 SoundFX::~SoundFX()
 {
-
+	GameObject::SetSoundFX(nullptr);
 }
 
 void SoundFX::LoadSounds()

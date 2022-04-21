@@ -1,6 +1,2 @@
-﻿  Rock.cpp
-  Spaceship.cpp
-C:\Users\student\Documents\GitHub\KF6017-GameShell\GameShell\GameShell\Spaceship.cpp(120,50): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\student\Documents\GitHub\KF6017-GameShell\GameShell\GameShell\Spaceship.cpp(148,36): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-  Generating Code...
+﻿  Spaceship.cpp
   GameShell.vcxproj -> C:\Users\student\Documents\GitHub\KF6017-GameShell\GameShell\Debug\GameShell.exe

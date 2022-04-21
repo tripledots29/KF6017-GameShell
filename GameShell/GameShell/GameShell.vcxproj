@@ -143,8 +143,10 @@
   <ItemGroup>
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="camera.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="ErrorLogger.h" />
     <ClInclude Include="errortype.h" />
+    <ClInclude Include="LevelManager.h" />
     <ClInclude Include="Message.h" />
     <ClInclude Include="Explosion.h" />
     <ClInclude Include="gamecode.h" />
@@ -165,11 +167,13 @@
   <ItemGroup>
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="camera.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="ErrorLogger.cpp" />
     <ClCompile Include="Explosion.cpp" />
     <ClCompile Include="gamecode.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="gametimer.cpp" />
+    <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="mydrawengine.cpp" />
     <ClCompile Include="myinputs.cpp" />
     <ClCompile Include="mysoundengine.cpp" />

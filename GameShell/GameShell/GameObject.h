@@ -11,6 +11,8 @@
 
 class ObjectManager;
 
+class SoundFX;
+
 class GameObject
 {
 protected:
@@ -25,6 +27,7 @@ protected:
 	bool canCollide = true; 
 	bool splittable = false;
 	static ObjectManager* pTheObjectManager;
+	static SoundFX* pTheSoundFX;
 	const ObjectType TYPE;
 
 
@@ -33,8 +36,8 @@ public:
 	virtual ~GameObject(); //using a virtual destructor means the compiler decides what to delete at run-time rather than compile-time.
 						   //means that deleting a GameObject is not just deleting the extra stuff (e.g. the add-on a rock has) but everything.
 	static void SetObjectManager(ObjectManager* pObjectManager);
+	static void SetSoundFX(SoundFX* pSoundFX);
 	void LoadImage(const wchar_t filename[]);
-	void PlaySound(const wchar_t filename[]);
 	bool IsActive() const;
 	void Deactivate();
 	void HandleMessage(Message& msg);

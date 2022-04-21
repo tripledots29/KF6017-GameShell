@@ -1,7 +1,10 @@
 #include "GameObject.h"
 #include "ObjectManager.h"
+#include "SoundFX.h"
 
 ObjectManager* GameObject::pTheObjectManager = nullptr;
+
+SoundFX* GameObject::pTheSoundFX = nullptr;
 
 GameObject::GameObject(ObjectType type):TYPE(type)
 {
@@ -18,18 +21,14 @@ void GameObject::SetObjectManager(ObjectManager* pObjectManager)
 	pTheObjectManager = pObjectManager;
 }
 
+void GameObject::SetSoundFX(SoundFX* pSoundFX)
+{
+	pTheSoundFX = pSoundFX;
+}
+
 void GameObject::LoadImage(const wchar_t filename[])
 {
 	pic = MyDrawEngine::GetInstance()->LoadPicture(filename);
-}
-
-
-void GameObject::PlaySound(const wchar_t filename[])
-{
-	MySoundEngine* pSE = MySoundEngine::GetInstance();
-	sound = pSE->LoadWav(filename);
-	pSE->Play(sound); 
-
 }
 
 bool GameObject::IsActive() const
