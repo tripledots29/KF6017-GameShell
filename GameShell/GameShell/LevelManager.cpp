@@ -3,6 +3,7 @@
 LevelManager::LevelManager() :GameObject(ObjectType::LEVELMANAGER)
 {
 	objectActive = false;
+	canCollide = false;
 }
 
 LevelManager::~LevelManager()
@@ -13,11 +14,26 @@ LevelManager::~LevelManager()
 //bloat functions
 void LevelManager::Initialise(Vector2D initialPosition, Vector2D initialVelocity, float initialSize, bool isSplittable, bool isCollidable)
 {
+	
+
+}
+
+void LevelManager::Render()
+{
 
 }
 
 void LevelManager::Update(float frameTime)
 {
+
+	MyDrawEngine::GetInstance()->WriteText(100, 50, L"Timer Remaining:", MyDrawEngine::YELLOW);
+	MyDrawEngine::GetInstance()->WriteDouble(300, 50, double(endLevelTimer), MyDrawEngine::YELLOW);
+
+	MyDrawEngine::GetInstance()->WriteText(400, 50, L"Enemies Remaining:", MyDrawEngine::YELLOW);
+	MyDrawEngine::GetInstance()->WriteInt(600, 50, numberOfEnemies, MyDrawEngine::YELLOW);
+
+	MyDrawEngine::GetInstance()->WriteText(700, 50, L"Player Health:", MyDrawEngine::YELLOW);
+	MyDrawEngine::GetInstance()->WriteInt(900, 50, playerHealth, MyDrawEngine::YELLOW);
 
 }
 
@@ -30,6 +46,8 @@ IShape2D& LevelManager::GetShape()
 //useful functions
 void LevelManager::StartLevel()
 {
+	objectActive = true;
+
 	levelNumber++;
 	
 	if (levelNumber == 1)
@@ -41,6 +59,14 @@ void LevelManager::StartLevel()
 
 		GenerateRocks(15);
 
+	}
+}
+
+void LevelManager::HandleMessage(Message& msg)
+{
+	if (msg.type == EventType::SPACESHIP_HIT)
+	{
+		playerHealth = msg.otherData;
 	}
 }
 

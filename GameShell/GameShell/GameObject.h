@@ -16,16 +16,15 @@ class SoundFX;
 class GameObject
 {
 protected:
-	Vector2D position;
-	float angle;
+	Vector2D position = Vector2D(0, 0); //default is 0,0 for ease
+	float angle = 0; //angle default is 0 for ease
 	float imageScale = 1; //scale the object is on (originally 1)
 	float bmpRadius; //original radius object has from the bmp file
 	float size;  //actual size of the object (half width)
-	PictureIndex pic;
-	SoundIndex sound;
-	bool objectActive;
-	bool canCollide = true; 
-	bool splittable = false;
+	PictureIndex pic = 0; //default is 0 for reduced memory
+	bool objectActive = false; //default is false till activated
+	bool canCollide = true;  //default is can collide
+	bool splittable = false; //default is can't split
 	static ObjectManager* pTheObjectManager;
 	static SoundFX* pTheSoundFX;
 	const ObjectType TYPE;
@@ -40,7 +39,7 @@ public:
 	void LoadImage(const wchar_t filename[]);
 	bool IsActive() const;
 	void Deactivate();
-	void HandleMessage(Message& msg);
+	virtual void HandleMessage(Message& msg);
 	virtual void Initialise(Vector2D initialPosition, Vector2D initialVelocity, float initialSize, bool isSplittable, bool isCollidable)  = 0;
 	virtual void Render();
 	float GetSize();

@@ -83,8 +83,7 @@ Vector2D GameObject::getPosition()
 
 void GameObject::ProcessCollision(GameObject& collidedWith)
 {
-	Deactivate();
-	//default collision process is to deactivate
+	//default collision process is to do nothing
 }
 
 /*

@@ -39,7 +39,7 @@ private:
 	
 	ObjectManager TheObjectManager;
 
-	LevelManager TheLevelManager;
+	LevelManager* pTheLevelManager;
 
 	SoundFX TheSoundFX;
 	

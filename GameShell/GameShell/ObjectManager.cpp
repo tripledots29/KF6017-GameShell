@@ -92,7 +92,6 @@ void ObjectManager::UpdateAll(float frameTime)
 void ObjectManager::RenderAll()
 {
 	MyDrawEngine::GetInstance()->WriteInt(50, 50, pObjectList.size(), MyDrawEngine::GREEN);
-	MyDrawEngine::GetInstance()->WriteText(500, 60, L"Score", MyDrawEngine::WHITE);
 
 
 	for (GameObject* pNext : pObjectList)

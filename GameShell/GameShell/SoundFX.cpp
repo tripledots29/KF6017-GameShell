@@ -15,7 +15,7 @@ void SoundFX::LoadSounds()
 {
 	MySoundEngine* pSoundEngine = MySoundEngine::GetInstance();
 	m_Shot = pSoundEngine->LoadWav(L"shoot.wav");
-	m_Engine = pSoundEngine->LoadWav(L"thrustloop2.wav");
+ 	m_Engine = pSoundEngine->LoadWav(L"thrustloop2.wav");
 	m_Explosions[0] = pSoundEngine->LoadWav(L"explosion.wav");
 	m_Explosions[1] = pSoundEngine->LoadWav(L"explosion1.wav");
 	m_Explosions[2] = pSoundEngine->LoadWav(L"explosion2.wav");

@@ -120,13 +120,19 @@ void Spaceship::Update(float frameTime)
 
 	invDelay = invDelay - frameTime; //every frame take away until delay hits 0
 
-	MyDrawEngine::GetInstance()->WriteInt(400, 400, int(health), MyDrawEngine::GREEN);
-
 }
 
 void Spaceship::TakeDamage(int amount)
 {
 	health = health - amount;
+
+	Message m;
+	m.type = EventType::SPACESHIP_HIT;
+	m.location = position;
+	m.pSource = this;
+	m.otherData = int(health);
+	pTheObjectManager->SendMessage(m);
+
 	if (health <= 0)
 	{
 		Deactivate();

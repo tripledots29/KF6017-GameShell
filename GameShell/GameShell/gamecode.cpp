@@ -277,7 +277,13 @@ ErrorType Game::StartOfGame()
    // **********************************************************************
 	
 	TheSoundFX.LoadSounds();
-	TheLevelManager.StartLevel();
+
+
+
+	pTheLevelManager = new LevelManager;
+	pTheLevelManager->StartLevel();
+	TheObjectManager.AddObject(pTheLevelManager);
+
 
 
 
@@ -314,7 +320,7 @@ ErrorType Game::Update()
 	
 	gt.mark();
 
-	
+
 	TheObjectManager.UpdateAll(float (gt.mdFrameTime));
 	TheObjectManager.RenderAll();
 	TheObjectManager.DeleteAllInactive();
