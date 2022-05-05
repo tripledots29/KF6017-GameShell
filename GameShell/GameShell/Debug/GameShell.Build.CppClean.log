@@ -1,35 +1,30 @@
 s:\uni\year 3\kf6017 - software architecture for games\github - assessment\kf6017-gameshell\gameshell\gameshell\debug\vc142.pdb
 s:\uni\year 3\kf6017 - software architecture for games\github - assessment\kf6017-gameshell\gameshell\gameshell\debug\vc142.idb
-c:\users\student\documents\github\kf6017-gameshell\gameshell\gameshell\debug\vc142.pdb
-c:\users\student\documents\github\kf6017-gameshell\gameshell\gameshell\debug\vc142.idb
-c:\users\student\documents\github\kf6017-gameshell\gameshell\gameshell\debug\vector2d.obj
-c:\users\student\documents\github\kf6017-gameshell\gameshell\gameshell\debug\shapes.obj
-c:\users\student\documents\github\kf6017-gameshell\gameshell\gameshell\debug\mysoundengine.obj
-c:\users\student\documents\github\kf6017-gameshell\gameshell\gameshell\debug\myinputs.obj
-c:\users\student\documents\github\kf6017-gameshell\gameshell\gameshell\debug\mydrawengine.obj
-c:\users\student\documents\github\kf6017-gameshell\gameshell\gameshell\debug\gametimer.obj
-c:\users\student\documents\github\kf6017-gameshell\gameshell\gameshell\debug\errorlogger.obj
-c:\users\student\documents\github\kf6017-gameshell\gameshell\gameshell\debug\camera.obj
-c:\users\student\documents\github\kf6017-gameshell\gameshell\gameshell\debug\wincode.obj
-c:\users\student\documents\github\kf6017-gameshell\gameshell\gameshell\debug\objectmanager.obj
-c:\users\student\documents\github\kf6017-gameshell\gameshell\gameshell\debug\gameobject.obj
-c:\users\student\documents\github\kf6017-gameshell\gameshell\gameshell\debug\gamecode.obj
-c:\users\student\documents\github\kf6017-gameshell\gameshell\gameshell\debug\explosion.obj
-c:\users\student\documents\github\kf6017-gameshell\gameshell\gameshell\debug\bullet.obj
-c:\users\student\documents\github\kf6017-gameshell\gameshell\gameshell\debug\spaceship.obj
-c:\users\student\documents\github\kf6017-gameshell\gameshell\gameshell\debug\rock.obj
-c:\users\student\documents\github\kf6017-gameshell\gameshell\gameshell\debug\soundfx.obj
-c:\users\student\documents\github\kf6017-gameshell\gameshell\gameshell\debug\levelmanager.obj
-c:\users\student\documents\github\kf6017-gameshell\gameshell\gameshell\debug\enemy.obj
-c:\users\student\documents\github\kf6017-gameshell\gameshell\debug\gameshell.exe
-c:\users\student\documents\github\kf6017-gameshell\gameshell\gameshell\debug\gameshell.ilk
-c:\users\student\documents\github\kf6017-gameshell\gameshell\debug\gameshell.pdb
-c:\users\student\documents\github\kf6017-gameshell\gameshell\gameshell\debug\gamecode.obj.enc
-c:\users\student\documents\github\kf6017-gameshell\gameshell\gameshell\debug\rock.obj.enc
-c:\users\student\documents\github\kf6017-gameshell\gameshell\gameshell\debug\soundfx.obj.enc
-c:\users\student\documents\github\kf6017-gameshell\gameshell\gameshell\debug\gameshell.tlog\cl.command.1.tlog
-c:\users\student\documents\github\kf6017-gameshell\gameshell\gameshell\debug\gameshell.tlog\cl.read.1.tlog
-c:\users\student\documents\github\kf6017-gameshell\gameshell\gameshell\debug\gameshell.tlog\cl.write.1.tlog
-c:\users\student\documents\github\kf6017-gameshell\gameshell\gameshell\debug\gameshell.tlog\link.command.1.tlog
-c:\users\student\documents\github\kf6017-gameshell\gameshell\gameshell\debug\gameshell.tlog\link.read.1.tlog
-c:\users\student\documents\github\kf6017-gameshell\gameshell\gameshell\debug\gameshell.tlog\link.write.1.tlog
+s:\uni\year 3\kf6017 - software architecture for games\github - assessment\kf6017-gameshell\gameshell\gameshell\debug\wincode.obj
+s:\uni\year 3\kf6017 - software architecture for games\github - assessment\kf6017-gameshell\gameshell\gameshell\debug\vector2d.obj
+s:\uni\year 3\kf6017 - software architecture for games\github - assessment\kf6017-gameshell\gameshell\gameshell\debug\spaceship.obj
+s:\uni\year 3\kf6017 - software architecture for games\github - assessment\kf6017-gameshell\gameshell\gameshell\debug\soundfx.obj
+s:\uni\year 3\kf6017 - software architecture for games\github - assessment\kf6017-gameshell\gameshell\gameshell\debug\shapes.obj
+s:\uni\year 3\kf6017 - software architecture for games\github - assessment\kf6017-gameshell\gameshell\gameshell\debug\rock.obj
+s:\uni\year 3\kf6017 - software architecture for games\github - assessment\kf6017-gameshell\gameshell\gameshell\debug\objectmanager.obj
+s:\uni\year 3\kf6017 - software architecture for games\github - assessment\kf6017-gameshell\gameshell\gameshell\debug\mysoundengine.obj
+s:\uni\year 3\kf6017 - software architecture for games\github - assessment\kf6017-gameshell\gameshell\gameshell\debug\myinputs.obj
+s:\uni\year 3\kf6017 - software architecture for games\github - assessment\kf6017-gameshell\gameshell\gameshell\debug\mydrawengine.obj
+s:\uni\year 3\kf6017 - software architecture for games\github - assessment\kf6017-gameshell\gameshell\gameshell\debug\levelmanager.obj
+s:\uni\year 3\kf6017 - software architecture for games\github - assessment\kf6017-gameshell\gameshell\gameshell\debug\gametimer.obj
+s:\uni\year 3\kf6017 - software architecture for games\github - assessment\kf6017-gameshell\gameshell\gameshell\debug\gameobject.obj
+s:\uni\year 3\kf6017 - software architecture for games\github - assessment\kf6017-gameshell\gameshell\gameshell\debug\gamecode.obj
+s:\uni\year 3\kf6017 - software architecture for games\github - assessment\kf6017-gameshell\gameshell\gameshell\debug\explosion.obj
+s:\uni\year 3\kf6017 - software architecture for games\github - assessment\kf6017-gameshell\gameshell\gameshell\debug\errorlogger.obj
+s:\uni\year 3\kf6017 - software architecture for games\github - assessment\kf6017-gameshell\gameshell\gameshell\debug\enemy.obj
+s:\uni\year 3\kf6017 - software architecture for games\github - assessment\kf6017-gameshell\gameshell\gameshell\debug\camera.obj
+s:\uni\year 3\kf6017 - software architecture for games\github - assessment\kf6017-gameshell\gameshell\gameshell\debug\bullet.obj
+s:\uni\year 3\kf6017 - software architecture for games\github - assessment\kf6017-gameshell\gameshell\debug\gameshell.exe
+s:\uni\year 3\kf6017 - software architecture for games\github - assessment\kf6017-gameshell\gameshell\gameshell\debug\gameshell.ilk
+s:\uni\year 3\kf6017 - software architecture for games\github - assessment\kf6017-gameshell\gameshell\debug\gameshell.pdb
+s:\uni\year 3\kf6017 - software architecture for games\github - assessment\kf6017-gameshell\gameshell\gameshell\debug\gameshell.tlog\cl.command.1.tlog
+s:\uni\year 3\kf6017 - software architecture for games\github - assessment\kf6017-gameshell\gameshell\gameshell\debug\gameshell.tlog\cl.read.1.tlog
+s:\uni\year 3\kf6017 - software architecture for games\github - assessment\kf6017-gameshell\gameshell\gameshell\debug\gameshell.tlog\cl.write.1.tlog
+s:\uni\year 3\kf6017 - software architecture for games\github - assessment\kf6017-gameshell\gameshell\gameshell\debug\gameshell.tlog\link.command.1.tlog
+s:\uni\year 3\kf6017 - software architecture for games\github - assessment\kf6017-gameshell\gameshell\gameshell\debug\gameshell.tlog\link.read.1.tlog
+s:\uni\year 3\kf6017 - software architecture for games\github - assessment\kf6017-gameshell\gameshell\gameshell\debug\gameshell.tlog\link.write.1.tlog

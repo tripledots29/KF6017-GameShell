@@ -66,12 +66,12 @@ void Spaceship::Update(float frameTime)
 	//key inputs for rotating
 	if ((pInputs->KeyPressed(DIK_UP)) || (pInputs->KeyPressed(DIK_W)))
 	{
-		angle = angle - 2.0f * frameTime;
+		angle = angle - MAXDEVIATION * frameTime;
 	}
 
 	if ((pInputs->KeyPressed(DIK_DOWN)) || (pInputs->KeyPressed(DIK_S)))
 	{
-		angle = angle + 2.0f * frameTime;
+		angle = angle + MAXDEVIATION * frameTime;
 	}
 
 	angle = angle - (angle - 3.14f / 2) * MAXDEVIATION * frameTime; 
@@ -153,6 +153,11 @@ void Spaceship::ProcessCollision(GameObject& collidedWith)
 {
 	if (typeid(collidedWith) == typeid(Rock) && invDelay < 0)
 	{
+		if (pTheSoundFX)
+		{
+			pTheSoundFX->PlayExplosion();
+		}
+
 		invDelay = invDelayDefault;
 		TakeDamage(int(collidedWith.GetSize()/5));
 		GameObject* pTheExplosion = pTheObjectManager->Create(ObjectType::EXPLOSION); 

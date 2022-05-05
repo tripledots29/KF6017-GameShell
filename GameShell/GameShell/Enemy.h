@@ -5,10 +5,12 @@
 class Enemy : public GameObject
 {
 private:
+	Vector2D velocity;
 
-	PictureIndex images[8];
-	float currentImage;
-	Circle2D collisionShape;
+	Rectangle2D collisionShape;
+
+	float health = 100;
+
 
 public:
 	Enemy();

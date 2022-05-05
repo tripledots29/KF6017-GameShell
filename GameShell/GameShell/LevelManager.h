@@ -10,8 +10,10 @@ protected:
 
 	int levelNumber = 0;
 	int scoreTotal = 0;
-	float endLevelTimer = 5.0f;
-	int numberOfEnemies = 0;
+	float endLevelTimer = 500.0f;
+
+	int numberOfEnemies = 10;
+
 	int playerLives = 5;
 	int playerHealth = 100;
 
@@ -30,4 +32,5 @@ public:
 	void EnemyDead();
 	void PlayerDead();
 	void GenerateRocks(int amountOfRocks);
+	void GenerateEnemies(int amountofEnemies);
 };
