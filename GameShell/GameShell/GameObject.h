@@ -45,7 +45,8 @@ public:
 	float GetSize();
 	ObjectType getType() const;
 	bool getCollide();
-	Vector2D getPosition();
+	Vector2D getPosition();	
+	float getAngle();
 	virtual void Update(float frameTime) = 0;
 	virtual IShape2D& GetShape() = 0;
 	virtual void ProcessCollision(GameObject& collidedWith);

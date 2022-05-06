@@ -281,14 +281,9 @@ ErrorType Game::StartOfGame()
 
 
 	pTheLevelManager = new LevelManager;
-	pTheLevelManager->StartLevel();
 	TheObjectManager.AddObject(pTheLevelManager);
+	pTheLevelManager->StartLevel();
 
-
-
-
-
-	gt.mark();
 	gt.mark();
 
 

@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "ObjectManager.h"
 
+class Spaceship;
 
 class LevelManager : public GameObject
 {
@@ -15,7 +16,9 @@ protected:
 	int numberOfEnemies = 10;
 
 	int playerLives = 5;
-	int playerHealth = 100;
+	int playerHealth;
+
+	Spaceship* pThePlayer;
 
 public:
 	LevelManager();

@@ -4,6 +4,7 @@ LevelManager::LevelManager() :GameObject(ObjectType::LEVELMANAGER)
 {
 	objectActive = false;
 	canCollide = false;
+	pThePlayer = nullptr;
 }
 
 LevelManager::~LevelManager()
@@ -38,6 +39,9 @@ void LevelManager::Update(float frameTime)
 	MyDrawEngine::GetInstance()->WriteText(1100, 50, L"Score:", MyDrawEngine::YELLOW);
 	MyDrawEngine::GetInstance()->WriteInt(1300, 50, scoreTotal, MyDrawEngine::YELLOW);
 
+	MyDrawEngine::GetInstance()->WriteText(1500, 50, L"Lives Remaining:", MyDrawEngine::YELLOW);
+	MyDrawEngine::GetInstance()->WriteInt(1700, 50, playerLives, MyDrawEngine::YELLOW);
+
 }
 
 IShape2D& LevelManager::GetShape()
@@ -57,12 +61,18 @@ void LevelManager::StartLevel()
 
 		numberOfEnemies = 15;
 	{
-		GameObject* pTheSpaceShip = pTheObjectManager->Create(ObjectType::SPACESHIP);
-		pTheSpaceShip->Initialise(Vector2D(20.0f, 20.0f), Vector2D(20.0f, 20.0f), 32.0f, false, true);
+		pThePlayer = dynamic_cast <Spaceship*> (pTheObjectManager->Create(ObjectType::SPACESHIP));
+
 
 		GenerateRocks(5);
 
-		GenerateEnemies(1);
+		GenerateEnemies(5);
+
+		if (pThePlayer)
+		{
+			pThePlayer->Initialise(Vector2D(20.0f, 20.0f), Vector2D(20.0f, 20.0f), 64.0f, false, true);
+		}
+
 	}
 }
 
@@ -72,6 +82,21 @@ void LevelManager::HandleMessage(Message& msg)
 	{
 		playerHealth = msg.otherData;
 	}
+
+	if (msg.type == EventType::OBJECT_DESTROYED && msg.pSource == pThePlayer)
+	{
+		pThePlayer = nullptr;
+		pThePlayer = dynamic_cast <Spaceship*> (pTheObjectManager->Create(ObjectType::SPACESHIP));
+		pThePlayer->Initialise(Vector2D(msg.location.XValue + 200.0f, msg.location.YValue), Vector2D(550.0f, 50.0f), 64.0f, false, true);
+		playerHealth = msg.otherData;
+		playerLives = playerLives - 1;
+	}
+
+	if (msg.type == EventType::PLAYER_SPAWNED && msg.pSource == pThePlayer)
+	{
+		playerHealth = msg.otherData;
+	}
+
 }
 
 void LevelManager::AddScore(int score)
@@ -104,10 +129,14 @@ void LevelManager::GenerateRocks(int amountOfRocks)
 
 void LevelManager::GenerateEnemies(int amountofEnemies)
 {
-	GameObject* pTheEnemy = pTheObjectManager->Create(ObjectType::ENEMY);
-	Vector2D pos;
-	Vector2D vel;
-	pos.setBearing(rand() % 628 / 100.0f, rand() % 400 + 600.0f);
-	vel.set(rand() % 400 + (-100.0f), rand() % 400 + (-100.0f));
-	pTheEnemy->Initialise(pos, vel, 32.0f, false, true);
+	for (int i = 0; i < amountofEnemies; i++)
+	{
+		GameObject* pTheEnemy = pTheObjectManager->Create(ObjectType::ENEMY);
+		Vector2D pos;
+		Vector2D vel;
+		pos.setBearing(rand() % 314 / 100.0f, rand() % 1500 + 600.0f);
+		vel.set(rand() % 400 + (-100.0f), rand() % 400 + (-100.0f));
+		pTheEnemy->Initialise(pos, vel, 32.0f, false, true);
+		(dynamic_cast <Enemy*> (pTheEnemy))->SetTarget(pThePlayer);
+	}
 }

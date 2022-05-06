@@ -39,9 +39,6 @@
     <ClInclude Include="mysoundengine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="objecttypes.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Shapes.h">
       <Filter>Header Files</Filter>
     </ClInclude>

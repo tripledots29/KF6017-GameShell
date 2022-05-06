@@ -2,15 +2,24 @@
 #include "GameObject.h"
 #include "ObjectManager.h"
 
+class Spaceship;
+
 class Enemy : public GameObject
 {
 private:
 	Vector2D velocity;
 
 	Rectangle2D collisionShape;
-
+	const float RADIUSFROMPLAYER = 450.0f;
+	float bearingFromPlayer;
+	float timeUntilAttack;
 	float health = 100;
+	float deltaBearing;
 
+	Vector2D desiredVelocity;
+	Vector2D targetPoint;
+
+	GameObject* pTarget;
 
 public:
 	Enemy();
@@ -19,5 +28,6 @@ public:
 	void Update(float frameTime) override;
 	IShape2D& GetShape() override;
 	void ProcessCollision(GameObject& collidedWith) override;
-
+	void SetTarget(Spaceship* pTarget);
+	void HandleMessage(Message& msg) override;
 };

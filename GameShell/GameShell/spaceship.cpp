@@ -15,7 +15,7 @@ Spaceship::~Spaceship()
 
 }
 
-const float MAXDEVIATION = 2.0f;
+const float MAXDEVIATION = 1.5f;
 
 void Spaceship::Initialise(Vector2D initialPosition, Vector2D initialVelocity, float initialSize, bool isSplittable, bool isCollidable)
 {
@@ -25,8 +25,18 @@ void Spaceship::Initialise(Vector2D initialPosition, Vector2D initialVelocity, f
 	size = initialSize;
 	imageScale = initialSize / bmpRadius;
 	canCollide = isCollidable;
+	health = 100;
 	velocity.set (0.0f,0.0f);
 	LoadImage(L"ship.bmp");
+
+
+	Message m;
+	m.type = EventType::PLAYER_SPAWNED;
+	m.location = position;
+	m.pSource = this;
+	m.otherData = health;
+	pTheObjectManager->SendMessage(m);
+
 }
 
 
@@ -40,7 +50,7 @@ void Spaceship::Update(float frameTime)
 	pInputs->SampleKeyboard();
 
 	Vector2D acceleration;
-	acceleration.setBearing(angle, 200.0f);
+	acceleration.setBearing(angle, 300.0f);
 
 	//key inputs for movement
 	if ((pInputs->KeyPressed(DIK_RIGHT)) || (pInputs->KeyPressed(DIK_D)))
@@ -140,6 +150,7 @@ void Spaceship::TakeDamage(int amount)
 		m.type = EventType::OBJECT_DESTROYED;
 		m.location = position;
 		m.pSource = this;
+		m.otherData = int(health);
 		pTheObjectManager->SendMessage(m);
 	}
 }

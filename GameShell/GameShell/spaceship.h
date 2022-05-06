@@ -15,7 +15,7 @@ private:
 
 	Circle2D collisionShape;
 
-	float health = 100;
+	float health;
 
 public:
 	Spaceship();

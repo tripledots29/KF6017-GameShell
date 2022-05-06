@@ -157,7 +157,6 @@
     <ClInclude Include="mysoundengine.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="ObjectType.h" />
-    <ClInclude Include="objecttypes.h" />
     <ClInclude Include="Rock.h" />
     <ClInclude Include="Shapes.h" />
     <ClInclude Include="SoundFX.h" />

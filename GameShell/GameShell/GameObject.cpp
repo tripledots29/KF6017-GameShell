@@ -81,6 +81,11 @@ Vector2D GameObject::getPosition()
 	return position;
 }
 
+float GameObject::getAngle()
+{
+	return angle;
+}
+
 void GameObject::ProcessCollision(GameObject& collidedWith)
 {
 	//default collision process is to do nothing
