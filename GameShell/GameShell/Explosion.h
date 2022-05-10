@@ -6,9 +6,11 @@ class Explosion : public GameObject
 {
 private:
 
+	Vector2D velocity;
 	PictureIndex images[8];
 	float currentImage;
 	Circle2D collisionShape;
+	bool isJetStream;
 
 public:
 	Explosion();

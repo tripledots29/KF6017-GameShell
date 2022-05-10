@@ -7,11 +7,11 @@ class Spaceship : public GameObject
 {
 private:
 	Vector2D velocity;
-	const float shootDelayDefault = 0.2f;
-	const float invDelayDefault = 0.5f;
+	const float SHOOTDELAYDEFAULT = 0.2f;
+	const float INVDELAYDEFAULT = 0.5f;
 
-	float shootDelay = shootDelayDefault;
-	float invDelay = invDelayDefault;
+	float shootDelay = SHOOTDELAYDEFAULT;
+	float invDelay = INVDELAYDEFAULT;
 
 	Circle2D collisionShape;
 

@@ -26,9 +26,11 @@ void LevelManager::Render()
 
 void LevelManager::Update(float frameTime)
 {
+	
+	endLevelTimer = endLevelTimer - frameTime;
 
 	MyDrawEngine::GetInstance()->WriteText(100, 50, L"Timer Remaining:", MyDrawEngine::YELLOW);
-	MyDrawEngine::GetInstance()->WriteDouble(300, 50, double(endLevelTimer), MyDrawEngine::YELLOW);
+	MyDrawEngine::GetInstance()->WriteInt(300, 50, int(endLevelTimer), MyDrawEngine::YELLOW);
 
 	MyDrawEngine::GetInstance()->WriteText(400, 50, L"Enemies Remaining:", MyDrawEngine::YELLOW);
 	MyDrawEngine::GetInstance()->WriteInt(600, 50, numberOfEnemies, MyDrawEngine::YELLOW);
@@ -42,6 +44,9 @@ void LevelManager::Update(float frameTime)
 	MyDrawEngine::GetInstance()->WriteText(1500, 50, L"Lives Remaining:", MyDrawEngine::YELLOW);
 	MyDrawEngine::GetInstance()->WriteInt(1700, 50, playerLives, MyDrawEngine::YELLOW);
 
+	MyDrawEngine::GetInstance()->WriteText(1900, 50, L"Level:", MyDrawEngine::YELLOW);
+	MyDrawEngine::GetInstance()->WriteInt(2100, 50, levelNumber, MyDrawEngine::YELLOW);
+	
 }
 
 IShape2D& LevelManager::GetShape()
@@ -56,17 +61,18 @@ void LevelManager::StartLevel()
 	objectActive = true;
 
 	levelNumber++;
-	
-	if (levelNumber == 1)
 
-		numberOfEnemies = 15;
+	if (levelNumber == 1)
+	
 	{
+		numberOfEnemies = 15;
+
 		pThePlayer = dynamic_cast <Spaceship*> (pTheObjectManager->Create(ObjectType::SPACESHIP));
 
 
-		GenerateRocks(5);
+		//GenerateRocks(5);
 
-		GenerateEnemies(5);
+		GenerateEnemies(2);
 
 		if (pThePlayer)
 		{
@@ -74,28 +80,40 @@ void LevelManager::StartLevel()
 		}
 
 	}
+
+	if (levelNumber == 2)
+
+	{
+	}
+
 }
 
 void LevelManager::HandleMessage(Message& msg)
 {
-	if (msg.type == EventType::SPACESHIP_HIT)
+	if (msg.type == EventType::PLAYER_HIT)
 	{
 		playerHealth = msg.otherData;
 	}
 
-	if (msg.type == EventType::OBJECT_DESTROYED && msg.pSource == pThePlayer)
+	if (msg.type == EventType::PLAYER_DESTROYED && msg.pSource == pThePlayer)
 	{
 		pThePlayer = nullptr;
 		pThePlayer = dynamic_cast <Spaceship*> (pTheObjectManager->Create(ObjectType::SPACESHIP));
 		pThePlayer->Initialise(Vector2D(msg.location.XValue + 200.0f, msg.location.YValue), Vector2D(550.0f, 50.0f), 64.0f, false, true);
 		playerHealth = msg.otherData;
-		playerLives = playerLives - 1;
+		PlayerDead();
 	}
 
 	if (msg.type == EventType::PLAYER_SPAWNED && msg.pSource == pThePlayer)
 	{
 		playerHealth = msg.otherData;
 	}
+
+	if (msg.type == EventType::ENEMY_DESTROYED)
+	{
+		EnemyDead();
+	}
+
 
 }
 

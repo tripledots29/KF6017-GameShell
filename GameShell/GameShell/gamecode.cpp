@@ -279,7 +279,6 @@ ErrorType Game::StartOfGame()
 	TheSoundFX.LoadSounds();
 
 
-
 	pTheLevelManager = new LevelManager;
 	TheObjectManager.AddObject(pTheLevelManager);
 	pTheLevelManager->StartLevel();

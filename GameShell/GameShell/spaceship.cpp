@@ -34,7 +34,7 @@ void Spaceship::Initialise(Vector2D initialPosition, Vector2D initialVelocity, f
 	m.type = EventType::PLAYER_SPAWNED;
 	m.location = position;
 	m.pSource = this;
-	m.otherData = health;
+	m.otherData = int(health);
 	pTheObjectManager->SendMessage(m);
 
 }
@@ -49,8 +49,10 @@ void Spaceship::Update(float frameTime)
 	MyInputs* pInputs = MyInputs::GetInstance();
 	pInputs->SampleKeyboard();
 
+	//setting acceleration
 	Vector2D acceleration;
 	acceleration.setBearing(angle, 300.0f);
+
 
 	//key inputs for movement
 	if ((pInputs->KeyPressed(DIK_RIGHT)) || (pInputs->KeyPressed(DIK_D)))
@@ -58,8 +60,16 @@ void Spaceship::Update(float frameTime)
 		acceleration.setBearing(angle, 500.0f);
 		if (pTheSoundFX)
 		{
-			pTheSoundFX->StartPlayingEngineSound();
+			//pTheSoundFX->StartPlayingEngineSound();
 		}
+		GameObject* pTheExplosion = pTheObjectManager->Create(ObjectType::EXPLOSION);
+		Vector2D jet;
+		jet.setBearing(angle + 3.14f, 36.0f);
+		jet = jet + position;
+		Vector2D jetVel;
+		jetVel.setBearing(angle + 3.14f, 500.0f);
+		jetVel = jetVel + velocity;
+		pTheExplosion->Initialise(jet, jetVel, 15.0f, true, false);
 	}
 	
 	if ((pInputs->KeyPressed(DIK_LEFT)) || (pInputs->KeyPressed(DIK_A)))
@@ -110,7 +120,7 @@ void Spaceship::Update(float frameTime)
 		//initialise the bullet
 		pTheBullet->Initialise(position+bulletLaunchPosition, bulletVelocity, 4.0f, false, true);
 
-		shootDelay = shootDelayDefault; //reset shootDelay back to default value. value = how many seconds a bullet replenishes
+		shootDelay = SHOOTDELAYDEFAULT; //reset shootDelay back to default value. value = how many seconds a bullet replenishes
 	}
 	shootDelay = shootDelay - frameTime; //every frame take away until delay hits 0
 
@@ -137,7 +147,7 @@ void Spaceship::TakeDamage(int amount)
 	health = health - amount;
 
 	Message m;
-	m.type = EventType::SPACESHIP_HIT;
+	m.type = EventType::PLAYER_HIT;
 	m.location = position;
 	m.pSource = this;
 	m.otherData = int(health);
@@ -147,7 +157,7 @@ void Spaceship::TakeDamage(int amount)
 	{
 		Deactivate();
 		Message m;
-		m.type = EventType::OBJECT_DESTROYED;
+		m.type = EventType::PLAYER_DESTROYED;
 		m.location = position;
 		m.pSource = this;
 		m.otherData = int(health);
@@ -169,7 +179,7 @@ void Spaceship::ProcessCollision(GameObject& collidedWith)
 			pTheSoundFX->PlayExplosion();
 		}
 
-		invDelay = invDelayDefault;
+		invDelay = INVDELAYDEFAULT;
 		TakeDamage(int(collidedWith.GetSize()/5));
 		GameObject* pTheExplosion = pTheObjectManager->Create(ObjectType::EXPLOSION); 
 		pTheExplosion->Initialise(position, Vector2D(0,0), size, false, false);

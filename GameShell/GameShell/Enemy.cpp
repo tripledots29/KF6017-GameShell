@@ -20,7 +20,7 @@ void Enemy::Initialise(Vector2D initialPosition, Vector2D initialVelocity, float
 	size = initialSize;
 	imageScale = initialSize / bmpRadius;
 	canCollide = isCollidable;
-	deltaBearing = (rand() % 100 - 150.0f) /100.0f;
+	deltaBearing = (rand() % 100 - 450.0f) /100.0f;
 	timeUntilAttack = rand() % 50 / 10.0f;
 	velocity.set(0.0f, 0.0f);
 
@@ -47,7 +47,7 @@ void Enemy::Update(float frameTime)
 
 
 		desiredVelocity = targetPoint - position;
-		desiredVelocity = desiredVelocity.unitVector() * 700.0f;
+		desiredVelocity = desiredVelocity.unitVector() * 900.0f;
 
 		if (rateOfChange > 1.0f)
 		{
@@ -62,7 +62,7 @@ void Enemy::Update(float frameTime)
 
 	else if (pTarget)
 	{
-		desiredVelocity = desiredVelocity.unitVector() * 400.0f;
+		desiredVelocity = desiredVelocity.unitVector() * 300.0f;
 
 		velocity = desiredVelocity * rateOfChange + velocity * (1.0f - rateOfChange);
 		angle = velocity.angle();
@@ -83,7 +83,7 @@ void Enemy::Update(float frameTime)
 			bulletVelocity.setBearing(angle, 1000.0f); //500 magnitude for the bullet = fast shooting. and at angle ship is currently facing
 
 			//initialise the bullet
-			pTheBullet->Initialise(position + bulletLaunchPosition, bulletVelocity, 4.0f, false, true);
+			pTheBullet->Initialise(position + bulletLaunchPosition, bulletVelocity, 14.0f, false, true);
 
 			timeUntilAttack = rand() % 100 / 10.0f;
 
@@ -96,6 +96,11 @@ void Enemy::Update(float frameTime)
 
 	}
 
+	//if (MyInputs::GetInstance()->KeyPressed(DIK_P))
+	//{
+	//	TakeDamage(100);
+	//}
+
 	position = position + velocity * frameTime;
 }
 
@@ -106,17 +111,45 @@ IShape2D& Enemy::GetShape()
 
 void Enemy::ProcessCollision(GameObject& collidedWith)
 {
-	//Deactivate();
+	if (typeid(collidedWith) == typeid(Bullet))
+	{
+		TakeDamage(10);
+	}
 }
 
 void Enemy::SetTarget(Spaceship* pTheTarget)
 {
-	pTarget = pTarget;
+	pTarget = pTheTarget;
 }
+
+void Enemy::TakeDamage(int amount)
+{
+	health = health - amount;
+
+	Message m;
+	m.type = EventType::ENEMY_HIT;
+	m.location = position;
+	m.pSource = this;
+	m.otherData = int(health);
+	pTheObjectManager->SendMessage(m);
+
+	if (health <= 0)
+	{
+		Deactivate();
+		Message m;
+		m.type = EventType::ENEMY_DESTROYED;
+		m.location = position;
+		m.pSource = this;
+		m.otherData = int(health);
+		pTheObjectManager->SendMessage(m);
+	}
+}
+
+
 
 void Enemy::HandleMessage(Message& msg)
 {
-	if (msg.type == EventType::OBJECT_DESTROYED && msg.pSource == pTarget)
+	if (msg.type == EventType::PLAYER_DESTROYED && msg.pSource == pTarget)
 	{
 		pTarget = nullptr;
 	}

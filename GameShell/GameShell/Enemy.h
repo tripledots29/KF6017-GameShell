@@ -10,7 +10,7 @@ private:
 	Vector2D velocity;
 
 	Rectangle2D collisionShape;
-	const float RADIUSFROMPLAYER = 450.0f;
+	const float RADIUSFROMPLAYER = 650.0f;
 	float bearingFromPlayer;
 	float timeUntilAttack;
 	float health = 100;
@@ -29,5 +29,6 @@ public:
 	IShape2D& GetShape() override;
 	void ProcessCollision(GameObject& collidedWith) override;
 	void SetTarget(Spaceship* pTarget);
+	void TakeDamage(int amount);
 	void HandleMessage(Message& msg) override;
 };

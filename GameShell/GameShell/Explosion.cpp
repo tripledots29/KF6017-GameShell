@@ -17,9 +17,10 @@ void Explosion::Initialise(Vector2D initialPosition, Vector2D initialVelocity, f
 	objectActive = true;
 	position = initialPosition;
 	canCollide = isCollidable;
+	velocity = initialVelocity;
 	size = initialSize;
 	imageScale = initialSize / bmpRadius;
-
+	isJetStream = isSplittable;
 	currentImage = 0;
 
 	images[0] = MyDrawEngine::GetInstance()->LoadPicture(L"explosion1.bmp");
@@ -33,7 +34,7 @@ void Explosion::Initialise(Vector2D initialPosition, Vector2D initialVelocity, f
 	
 	if (pTheSoundFX)
 	{
-		pTheSoundFX->PlayExplosion();
+		//pTheSoundFX->PlayExplosion();
 	}
 }
 
@@ -48,15 +49,22 @@ void Explosion::Render()
 
 void Explosion::Update(float frameTime)
 {
-	if (currentImage < 7)
+	if (currentImage < 7 && !isJetStream)
 	{
-		currentImage = currentImage + frameTime*8; //last a second (8*frameTime) when 8 images
+		currentImage = currentImage + frameTime * 8; //last a second (8*frameTime) when 8 images
+	}
+
+	if (currentImage < 7 && isJetStream)
+	{
+		currentImage = currentImage + frameTime * 80;
 	}
 
 	else
 	{
 		Deactivate();
 	}
+
+	position = position + velocity * frameTime;
 }
 
 

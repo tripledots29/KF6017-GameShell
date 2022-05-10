@@ -11,7 +11,7 @@ protected:
 
 	int levelNumber = 0;
 	int scoreTotal = 0;
-	float endLevelTimer = 500.0f;
+	float endLevelTimer = 100.0f;
 
 	int numberOfEnemies = 10;
 
