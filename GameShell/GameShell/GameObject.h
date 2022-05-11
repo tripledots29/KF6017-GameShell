@@ -45,6 +45,7 @@ public:
 	float GetSize();
 	ObjectType getType() const;
 	bool getCollide();
+	bool getBulletType();
 	Vector2D getPosition();	
 	float getAngle();
 	virtual void Update(float frameTime) = 0;

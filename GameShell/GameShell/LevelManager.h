@@ -16,7 +16,8 @@ protected:
 	bool endOfLevel;
 	bool gameOver;
 
-	int numberOfEnemies = 10;
+	int numberOfEnemies;
+	int numberOfRocks;
 
 	int playerLives = 5;
 	int playerHealth;

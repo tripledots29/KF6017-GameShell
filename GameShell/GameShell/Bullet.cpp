@@ -22,6 +22,7 @@ void Bullet::Initialise(Vector2D initialPosition, Vector2D initialVelocity, floa
 	velocity = initialVelocity;
 	size = initialSize;
 	canCollide = isCollidable;
+	splittable = isSplittable;
 	imageScale = initialSize / bmpRadius;
 	LoadImage(L"bullet.bmp");
 	if (pTheSoundFX)
@@ -36,6 +37,8 @@ void Bullet::Update(float frameTime)
 	collisionShape.PlaceAt(position.YValue + size,position.XValue - size, position.YValue - size, position.XValue + size); //exact square around the bullet
 
 	position = position + velocity * frameTime;
+
+	angle = velocity.angle();
 
 	if (lifeTimer > 0)
 	{
@@ -57,5 +60,13 @@ IShape2D& Bullet::GetShape()
 
 void Bullet::ProcessCollision(GameObject& collidedWith)
 {
-	Deactivate();
+	if ((typeid(collidedWith) == typeid(Bullet)) || ((typeid(collidedWith) == typeid(Spaceship)) && (collidedWith.getBulletType() == true)))
+	{
+
+	}
+
+	else
+	{
+		Deactivate();
+	}
 }

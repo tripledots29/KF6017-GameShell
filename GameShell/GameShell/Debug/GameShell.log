@@ -1,12 +1,2 @@
-﻿  Bullet.cpp
-  Enemy.cpp
-  Explosion.cpp
-  GameObject.cpp
-  LevelManager.cpp
-  ObjectManager.cpp
-  Rock.cpp
-  Spaceship.cpp
-  gamecode.cpp
-  wincode.cpp
-  Generating Code...
+﻿  Enemy.cpp
   GameShell.vcxproj -> C:\Users\student\Documents\GitHub\KF6017-GameShell\GameShell\Debug\GameShell.exe

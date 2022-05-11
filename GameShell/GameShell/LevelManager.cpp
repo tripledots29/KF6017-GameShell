@@ -6,6 +6,7 @@ LevelManager::LevelManager() :GameObject(ObjectType::LEVELMANAGER)
 	objectActive = false;
 	canCollide = false;
 	pThePlayer = nullptr;
+	
 }
 
 LevelManager::~LevelManager()
@@ -13,10 +14,11 @@ LevelManager::~LevelManager()
 
 }
 
+int halfWidth = 800;
+
 //bloat functions
 void LevelManager::Initialise(Vector2D initialPosition, Vector2D initialVelocity, float initialSize, bool isSplittable, bool isCollidable)
 {
-	
 
 }
 
@@ -65,8 +67,12 @@ void LevelManager::Update(float frameTime)
 	{
 		pTheObjectManager->DeleteAllButLevelManager(this);
 
-		MyDrawEngine::GetInstance()->WriteText(700, 500, L"Score So Far:", MyDrawEngine::YELLOW);
-		MyDrawEngine::GetInstance()->WriteInt(850, 500, scoreTotal, MyDrawEngine::YELLOW);
+		MyDrawEngine::GetInstance()->WriteText(halfWidth, 250, L"LEVEL OVER", MyDrawEngine::YELLOW);
+
+		MyDrawEngine::GetInstance()->WriteText(halfWidth, 500, L"Score So Far:", MyDrawEngine::YELLOW);
+		MyDrawEngine::GetInstance()->WriteInt(halfWidth + 150, 500, scoreTotal, MyDrawEngine::YELLOW);
+
+		MyDrawEngine::GetInstance()->WriteText(halfWidth, 700, L"Press G to Continue", MyDrawEngine::WHITE);
 
 		if (pInputs->KeyPressed(DIK_G))
 		{
@@ -79,10 +85,14 @@ void LevelManager::Update(float frameTime)
 
 	if (gameOver == true)
 	{
-		MyDrawEngine::GetInstance()->WriteText(700, 250, L"Game Over:", MyDrawEngine::YELLOW);
+		
+		MyDrawEngine::GetInstance()->WriteText(halfWidth, 250, L"GAME OVER", MyDrawEngine::RED);
 
-		MyDrawEngine::GetInstance()->WriteText(700, 500, L"Final Score:", MyDrawEngine::YELLOW);
-		MyDrawEngine::GetInstance()->WriteInt(850, 500, scoreTotal, MyDrawEngine::YELLOW);
+		MyDrawEngine::GetInstance()->WriteText(halfWidth, 500, L"Final Score:", MyDrawEngine::RED);
+		MyDrawEngine::GetInstance()->WriteInt(halfWidth + 150, 500, scoreTotal, MyDrawEngine::RED);
+
+		MyDrawEngine::GetInstance()->WriteText(halfWidth, 700, L"Press G to Quit", MyDrawEngine::WHITE);
+
 
 		if (pInputs->KeyPressed(DIK_G))
 		{
@@ -101,6 +111,7 @@ IShape2D& LevelManager::GetShape()
 //useful functions
 void LevelManager::StartLevel()
 {
+
 	objectActive = true;
 
 	levelNumber++;
@@ -109,15 +120,14 @@ void LevelManager::StartLevel()
 	
 	{
 		endLevelTimer = 1000.0f;
-		numberOfEnemies = 15;
+		numberOfEnemies = 5;
+		numberOfRocks = 0;
+
+		GenerateRocks(numberOfRocks);
+
+		GenerateEnemies(numberOfEnemies);
 
 		pThePlayer = dynamic_cast <Spaceship*> (pTheObjectManager->Create(ObjectType::SPACESHIP));
-
-
-		GenerateRocks(20);
-
-		GenerateEnemies(0);
-
 		if (pThePlayer)
 		{
 			pThePlayer->Initialise(Vector2D(20.0f, 20.0f), Vector2D(20.0f, 20.0f), 32.0f, false, true);
@@ -127,23 +137,37 @@ void LevelManager::StartLevel()
 
 	if (levelNumber == 2)
 	{
-		endLevelTimer = 150.0f;
+		endLevelTimer = 10.0f;
+		numberOfEnemies = 10;
+		numberOfRocks = 15;
+
+		GenerateRocks(numberOfRocks);
+
+		GenerateEnemies(numberOfEnemies);
 
 		pThePlayer = dynamic_cast <Spaceship*> (pTheObjectManager->Create(ObjectType::SPACESHIP));
-		pThePlayer->Initialise(Vector2D(0,0), Vector2D(10.0f, 0.0f), 32.0f, false, true);
-
-		GenerateRocks(10);
-
-		GenerateEnemies(6);
+		if (pThePlayer)
+		{
+			pThePlayer->Initialise(Vector2D(20.0f, 20.0f), Vector2D(20.0f, 20.0f), 32.0f, false, true);
+		}
 
 	}
 
 	if (levelNumber == 3)
 	{
+		endLevelTimer = 250.0f;
+		numberOfEnemies = 15;
+		numberOfRocks = 25;
 
-		GenerateRocks(10);
+		GenerateRocks(numberOfRocks);
 
-		GenerateEnemies(6);
+		GenerateEnemies(numberOfEnemies);
+
+		pThePlayer = dynamic_cast <Spaceship*> (pTheObjectManager->Create(ObjectType::SPACESHIP));
+		if (pThePlayer)
+		{
+			pThePlayer->Initialise(Vector2D(20.0f, 20.0f), Vector2D(20.0f, 20.0f), 32.0f, false, true);
+		}
 	}
 
 
@@ -184,6 +208,10 @@ void LevelManager::HandleMessage(Message& msg)
 		EnemyDead();
 	}
 
+	if (msg.type == EventType::ROCK_EXPLODE)
+	{
+		scoreTotal++;
+	}
 
 }
 
@@ -211,7 +239,7 @@ void LevelManager::GenerateRocks(int amountOfRocks)
 		Vector2D vel;
 		pos.setBearing(rand() % 628 / 100.0f, rand() % 400 + 600.0f);
 		vel.set(rand() % 200 + (-100.0f), rand() % 200 + (-100.0f));
-		pTheRock->Initialise(pos, vel, 64.0f, false, true);
+		pTheRock->Initialise(pos, vel, 64.0f, true, true);
 	}
 }
 

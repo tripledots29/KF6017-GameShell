@@ -25,7 +25,7 @@ void Spaceship::Initialise(Vector2D initialPosition, Vector2D initialVelocity, f
 	size = initialSize;
 	imageScale = initialSize / bmpRadius;
 	canCollide = isCollidable;
-	health = 15;
+	health = 100;
 	velocity.set (0.0f,0.0f);
 	LoadImage(L"ship.bmp");
 
@@ -123,7 +123,7 @@ void Spaceship::Update(float frameTime)
 		bulletVelocity.setBearing(angle, 1000.0f); //500 magnitude for the bullet = fast shooting. and at angle ship is currently facing
 
 		//initialise the bullet
-		pTheBullet->Initialise(position+bulletLaunchPosition, bulletVelocity, 4.0f, false, true);
+		pTheBullet->Initialise(position+bulletLaunchPosition, bulletVelocity, 16.0f, true, true);
 
 		shootDelay = SHOOTDELAYDEFAULT; //reset shootDelay back to default value. value = how many seconds a bullet replenishes
 	}

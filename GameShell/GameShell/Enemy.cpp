@@ -14,7 +14,7 @@ Enemy::~Enemy()
 
 void Enemy::Initialise(Vector2D initialPosition, Vector2D initialVelocity, float initialSize, bool isSplittable, bool isCollidable)
 {
-	angle = 3.1420f / 2;
+	angle = 3.1420f / -2;
 	objectActive = true;
 	position = initialPosition;
 	size = initialSize;
@@ -41,7 +41,7 @@ void Enemy::Update(float frameTime)
 
 	if (timeUntilAttack > 0 && pTarget)
 	{
-		targetPoint.setBearing(bearingFromPlayer, RADIUSFROMPLAYER);
+		targetPoint.setBearing(bearingFromPlayer, RADIUSFROMPLAYER-400);
 
 		targetPoint = targetPoint + pTarget->getPosition();
 
@@ -83,7 +83,7 @@ void Enemy::Update(float frameTime)
 			bulletVelocity.setBearing(angle, 1000.0f); //500 magnitude for the bullet = fast shooting. and at angle ship is currently facing
 
 			//initialise the bullet
-			pTheBullet->Initialise(position + bulletLaunchPosition, bulletVelocity, 8.0f, false, true);
+			//pTheBullet->Initialise(position + bulletLaunchPosition, bulletVelocity, 8.0f, false, true);
 
 			timeUntilAttack = rand() % 100 / 10.0f;
 
@@ -102,6 +102,9 @@ void Enemy::Update(float frameTime)
 	//}
 
 	position = position + velocity * frameTime;
+
+	invDelay = invDelay - frameTime; //every frame take away until delay hits 0
+
 }
 
 IShape2D& Enemy::GetShape()
@@ -111,14 +114,19 @@ IShape2D& Enemy::GetShape()
 
 void Enemy::ProcessCollision(GameObject& collidedWith)
 {
-	if (typeid(collidedWith) == typeid(Bullet))
+  	if ((typeid(collidedWith) == typeid(Bullet)) && (collidedWith.getBulletType() == true))
 	{
-		TakeDamage(100);
+		TakeDamage(50);
+		GameObject* pTheExplosion = pTheObjectManager->Create(ObjectType::EXPLOSION);
+		pTheExplosion->Initialise(position, Vector2D(0, 0), size, false, false);
 	}
 
-	if (typeid(collidedWith) == typeid(Rock))
+	if ((typeid(collidedWith) == typeid(Rock)) && invDelay < 0)
 	{
-		TakeDamage(100);
+		TakeDamage(40);
+		invDelay = INVDELAYDEFAULT;
+		GameObject* pTheExplosion = pTheObjectManager->Create(ObjectType::EXPLOSION);
+		pTheExplosion->Initialise(position, Vector2D(0, 0), size, false, false);
 	}
 }
 

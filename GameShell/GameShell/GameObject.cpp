@@ -76,6 +76,12 @@ bool GameObject::getCollide()
 	return canCollide;
 }
 
+//true bullet type means from player
+bool GameObject::getBulletType()
+{
+	return splittable;
+}
+
 Vector2D GameObject::getPosition()
 {
 	return position;
