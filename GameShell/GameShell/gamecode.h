@@ -43,6 +43,7 @@ private:
 
 	SoundFX TheSoundFX;
 	
+	bool isGameOver;
 
 	int m_menuOption;              // Tracks the currently selected menu option, during main or pause menu
 	Game();                        // Constructor
@@ -93,6 +94,9 @@ public:
    // but could be done by the gameplay programmer in other situations
    // This will be used by the gameplay programmer to clean up
 	ErrorType EndOfGame();
+
+	//Ends the game and returns to menu
+	void EndGame();
 };
 
 

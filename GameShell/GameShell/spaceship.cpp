@@ -25,7 +25,7 @@ void Spaceship::Initialise(Vector2D initialPosition, Vector2D initialVelocity, f
 	size = initialSize;
 	imageScale = initialSize / bmpRadius;
 	canCollide = isCollidable;
-	health = 100;
+	health = 15;
 	velocity.set (0.0f,0.0f);
 	LoadImage(L"ship.bmp");
 
@@ -51,7 +51,7 @@ void Spaceship::Update(float frameTime)
 
 	//setting acceleration
 	Vector2D acceleration;
-	acceleration.setBearing(angle, 300.0f);
+	acceleration.setBearing(angle, 200.0f);
 
 
 	//key inputs for movement
@@ -83,6 +83,11 @@ void Spaceship::Update(float frameTime)
 	
 	velocity = velocity + acceleration * frameTime;
 
+//	if (velocity.magnitude() > 300.0f)
+	//{
+		//velocity = velocity.unitVector() * 300.0f;
+	//}
+
 	//key inputs for rotating
 	if ((pInputs->KeyPressed(DIK_UP)) || (pInputs->KeyPressed(DIK_W)))
 	{
@@ -97,7 +102,7 @@ void Spaceship::Update(float frameTime)
 	angle = angle - (angle - 3.14f / 2) * MAXDEVIATION * frameTime; 
 
 	//calculating friction and momentum
-	Vector2D friction = -0.5f * velocity;
+	Vector2D friction = -1.0f * velocity;
 	velocity = velocity + friction * frameTime;
 
 	//updating position based on velocity + friction

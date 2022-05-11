@@ -276,6 +276,8 @@ ErrorType Game::StartOfGame()
    // Code to set up your game *********************************************
    // **********************************************************************
 	
+	isGameOver = false;
+
 	TheSoundFX.LoadSounds();
 
 
@@ -320,6 +322,12 @@ ErrorType Game::Update()
 	TheObjectManager.DeleteAllInactive();
 	TheObjectManager.CheckAllCollisions();
 
+	if (isGameOver == true)
+	{
+		EndOfGame();
+		ChangeState(MENU);
+	}
+
 
    // *********************************************************************
    // *********************************************************************
@@ -341,5 +349,10 @@ ErrorType Game::EndOfGame()
 	
 	
 	return SUCCESS;
+}
+
+void Game::EndGame()
+{
+	isGameOver = true;
 }
 

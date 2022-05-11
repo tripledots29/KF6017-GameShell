@@ -20,7 +20,7 @@ void Enemy::Initialise(Vector2D initialPosition, Vector2D initialVelocity, float
 	size = initialSize;
 	imageScale = initialSize / bmpRadius;
 	canCollide = isCollidable;
-	deltaBearing = (rand() % 100 - 450.0f) /100.0f;
+	deltaBearing = (rand() % 100 - 450.0f) /300.0f;
 	timeUntilAttack = rand() % 50 / 10.0f;
 	velocity.set(0.0f, 0.0f);
 
@@ -47,7 +47,7 @@ void Enemy::Update(float frameTime)
 
 
 		desiredVelocity = targetPoint - position;
-		desiredVelocity = desiredVelocity.unitVector() * 900.0f;
+		desiredVelocity = desiredVelocity.unitVector() * 1800.0f;
 
 		if (rateOfChange > 1.0f)
 		{
@@ -83,7 +83,7 @@ void Enemy::Update(float frameTime)
 			bulletVelocity.setBearing(angle, 1000.0f); //500 magnitude for the bullet = fast shooting. and at angle ship is currently facing
 
 			//initialise the bullet
-			pTheBullet->Initialise(position + bulletLaunchPosition, bulletVelocity, 14.0f, false, true);
+			pTheBullet->Initialise(position + bulletLaunchPosition, bulletVelocity, 8.0f, false, true);
 
 			timeUntilAttack = rand() % 100 / 10.0f;
 
@@ -113,7 +113,12 @@ void Enemy::ProcessCollision(GameObject& collidedWith)
 {
 	if (typeid(collidedWith) == typeid(Bullet))
 	{
-		TakeDamage(10);
+		TakeDamage(100);
+	}
+
+	if (typeid(collidedWith) == typeid(Rock))
+	{
+		TakeDamage(100);
 	}
 }
 

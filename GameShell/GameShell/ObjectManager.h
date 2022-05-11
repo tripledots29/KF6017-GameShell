@@ -27,6 +27,7 @@ public:
 	void RenderAll();
 	void DeleteAllInactive();
 	void DeleteAllEnd();
+	void DeleteAllButLevelManager(GameObject* pLevelManager);
 	void CheckAllCollisions();
 
 };

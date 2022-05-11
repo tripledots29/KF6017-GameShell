@@ -102,7 +102,7 @@ void Rock::ProcessCollision(GameObject& collidedWith)
 		{
 			Deactivate();
 
-			GameObject* pTheExplosion = pTheObjectManager->Create(ObjectType::EXPLOSION);
+			GameObject* pTheExplosion = pTheObjectManager->Create(ObjectType::EXPLOSION); 
 			pTheExplosion->Initialise(position, Vector2D(0,0), size, false, false);
 
 

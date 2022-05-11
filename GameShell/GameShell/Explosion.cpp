@@ -34,7 +34,7 @@ void Explosion::Initialise(Vector2D initialPosition, Vector2D initialVelocity, f
 	
 	if (pTheSoundFX)
 	{
-		//pTheSoundFX->PlayExplosion();
+		pTheSoundFX->PlayExplosion();
 	}
 }
 
@@ -49,22 +49,26 @@ void Explosion::Render()
 
 void Explosion::Update(float frameTime)
 {
-	if (currentImage < 7 && !isJetStream)
+
+	if (currentImage < 6)
 	{
-		currentImage = currentImage + frameTime * 8; //last a second (8*frameTime) when 8 images
+		if (isJetStream)
+		{
+			currentImage = currentImage + frameTime * 80; //last a milisecond (80*frameTime) when 8 images. jet on back of spaceship
+		}
+
+		if (!isJetStream)
+		{
+			currentImage = currentImage + frameTime * 8; //last a second (8*frameTime) when 8 images
+		}
 	}
 
-	if (currentImage < 7 && isJetStream)
-	{
-		currentImage = currentImage + frameTime * 80;
-	}
 
 	else
 	{
 		Deactivate();
 	}
 
-	position = position + velocity * frameTime;
 }
 
 

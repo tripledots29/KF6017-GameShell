@@ -3,6 +3,7 @@
 #include "ObjectManager.h"
 
 class Spaceship;
+class Game;
 
 class LevelManager : public GameObject
 {
@@ -11,7 +12,9 @@ protected:
 
 	int levelNumber = 0;
 	int scoreTotal = 0;
-	float endLevelTimer = 100.0f;
+	float endLevelTimer;
+	bool endOfLevel;
+	bool gameOver;
 
 	int numberOfEnemies = 10;
 
@@ -19,6 +22,7 @@ protected:
 	int playerHealth;
 
 	Spaceship* pThePlayer;
+	Game* pTheGame;
 
 public:
 	LevelManager();

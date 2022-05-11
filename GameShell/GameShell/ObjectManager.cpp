@@ -126,6 +126,20 @@ void ObjectManager::DeleteAllEnd()
 	pObjectList.clear();
 }
 
+void ObjectManager::DeleteAllButLevelManager(GameObject* pLevelManager)
+{
+	for (GameObject* &pNext : pObjectList)
+	{
+		if (pNext != pLevelManager)
+		{
+			delete pNext;
+			pNext = nullptr;
+
+		}
+	}
+	pObjectList.remove(nullptr);
+}
+
 void ObjectManager::CheckAllCollisions()
 {
 
