@@ -51,6 +51,11 @@ GameObject* ObjectManager::Create(ObjectType type)
 		pNewObject = new Enemy();
 	}
 
+	else if (type == ObjectType::PUFF)
+	{
+		pNewObject = new Puff();
+	}
+
 	else
 	{
 		ErrorLogger::Write(L"Could not create item: ");

@@ -1,4 +1,5 @@
 #include "Rock.h"
+#include "gamecode.h"
 
 Rock::Rock() :GameObject(ObjectType::ROCK)
 {
@@ -26,13 +27,11 @@ void Rock::Initialise(Vector2D initialPosition, Vector2D initialVelocity, float 
 
 	splittable = isSplittable;
 
-	//LoadImage(L"rock1.bmp");
 	images[0] = MyDrawEngine::GetInstance()->LoadPicture(L"rock1.bmp");
 	images[1] = MyDrawEngine::GetInstance()->LoadPicture(L"rock2.bmp");
 	images[2] = MyDrawEngine::GetInstance()->LoadPicture(L"rock3.bmp");
 	images[3] = MyDrawEngine::GetInstance()->LoadPicture(L"rock4.bmp");
 
-	//LoadImage(images[2]);
 	chosenImage = rand() % 4;
 
 }
@@ -53,30 +52,11 @@ void Rock::Update(float frameTime)
 	//update position based on velocity
 	position = position + velocity * frameTime;
 
-
-	//wrap around
-	
-	if (position.YValue > 1000.0f) //vertical size is -1000-1000
-	{
-		position.YValue = -1000.0f;
-	}
-	if (position.YValue < -1000.0f) //vertical size is -1000-1000
-	{
-		position.YValue = 1000.0f;
-	}
-
 	float screenLeftLimit = MyDrawEngine::GetInstance()->GetViewport().GetBottomLeft().XValue - 500.0f; //furthest points objects can go off the screen
 
 	if (position.XValue < screenLeftLimit)
 	{
 		Deactivate();
-		GameObject* pRock = pTheObjectManager->Create(ObjectType::ROCK);
-		Vector2D pos;
-		pos.set(screenLeftLimit + 4000.0f, rand() % 2000 - 1000.0f);
-		Vector2D vel;
-		//pos.setBearing(rand() % 628 / 100.0f, rand() % 400 + 600.0f);
-		vel.set(rand() % 200 + (-100.0f), rand() % 200 + (-100.0f));
-		pRock->Initialise(pos, vel, 64.0f, true, true);
 	}
 	
 }
@@ -95,8 +75,15 @@ void Rock::ProcessCollision(GameObject& collidedWith)
 		m.type = EventType::ROCK_EXPLODE;
 		m.location = position;
 		m.pSource = this;
+		m.otherData = int(size);
 		pTheObjectManager->SendMessage(m);
 
+		if (pTheSoundFX)
+		{
+			pTheSoundFX->PlayExplosion();
+		}
+
+		Game::instance.StopHit();
 
 		if (splittable == true)
 		{

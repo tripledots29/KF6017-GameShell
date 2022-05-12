@@ -2,6 +2,12 @@
 #include "GameObject.h"
 #include "ObjectManager.h"
 
+/*
+* Purpose: Explosions created usually on impact, also used for jet stream.
+* Desired effect based on time time taken for animation
+*
+* @author W18010680
+*/
 class Explosion : public GameObject
 {
 private:

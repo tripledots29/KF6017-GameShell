@@ -32,8 +32,6 @@ void LevelManager::Update(float frameTime)
 	MyInputs* pInputs = MyInputs::GetInstance();
 	pInputs->SampleKeyboard();
 
-	endLevelTimer = endLevelTimer - frameTime;
-
 	MyDrawEngine::GetInstance()->WriteText(10, 1, L"Level:", MyDrawEngine::YELLOW);
 	MyDrawEngine::GetInstance()->WriteInt(200, 1, levelNumber, MyDrawEngine::YELLOW);
 
@@ -43,31 +41,56 @@ void LevelManager::Update(float frameTime)
 		MyDrawEngine::GetInstance()->WriteInt(200, 50, int(endLevelTimer), MyDrawEngine::YELLOW);
 	}
 
-	if (endLevelTimer < 0.0f)
+	MyDrawEngine::GetInstance()->WriteText(10, 100, L"Enemies Remaining:", MyDrawEngine::YELLOW);
+	MyDrawEngine::GetInstance()->WriteInt(200, 100, enemiesLeft, MyDrawEngine::YELLOW);
+
+	MyDrawEngine::GetInstance()->WriteText(10, 150, L"Score:", MyDrawEngine::YELLOW);
+	MyDrawEngine::GetInstance()->WriteInt(200, 150, scoreTotal, MyDrawEngine::YELLOW);
+
+	MyDrawEngine::GetInstance()->WriteText(10, 300, L"Player Health:", MyDrawEngine::LIGHTRED);
+	MyDrawEngine::GetInstance()->WriteInt(200, 300, playerHealth, MyDrawEngine::LIGHTRED);
+
+	MyDrawEngine::GetInstance()->WriteText(10, 350, L"Lives Remaining:", MyDrawEngine::LIGHTRED);
+	MyDrawEngine::GetInstance()->WriteInt(200, 350, playerLives, MyDrawEngine::LIGHTRED);
+
+
+	endLevelTimer = endLevelTimer - frameTime;
+	if (endLevelTimer < 0.0f && levelNumber != MAXLEVELNUMBER)
 	{
 		endOfLevel = true;
 	}
 
-	MyDrawEngine::GetInstance()->WriteText(10, 100, L"Enemies Remaining:", MyDrawEngine::YELLOW);
-	MyDrawEngine::GetInstance()->WriteInt(200, 100, numberOfEnemies, MyDrawEngine::YELLOW);
+	if (endLevelTimer < 0.0f && levelNumber == MAXLEVELNUMBER)
+	{
+		gameOver = true;
+	}
 
-	MyDrawEngine::GetInstance()->WriteText(10, 150, L"Player Health:", MyDrawEngine::YELLOW);
-	MyDrawEngine::GetInstance()->WriteInt(200, 150, playerHealth, MyDrawEngine::YELLOW);
+	enemySpawnTimer = enemySpawnTimer - frameTime;
+	if (enemySpawnTimer < 0.0f)
+	{
+		GenerateEnemies(int((rand() % 20 + 10.0f) / 10.0f));
+		enemySpawnTimer = (rand() % 100 + 50) / 10.0f;
+	}
 
-	MyDrawEngine::GetInstance()->WriteText(10, 200, L"Score:", MyDrawEngine::YELLOW);
-	MyDrawEngine::GetInstance()->WriteInt(200, 200, scoreTotal, MyDrawEngine::YELLOW);
-
-	MyDrawEngine::GetInstance()->WriteText(10, 250, L"Lives Remaining:", MyDrawEngine::YELLOW);
-	MyDrawEngine::GetInstance()->WriteInt(200, 250, playerLives, MyDrawEngine::YELLOW);
-
-
-
+	RockSpawnTimer = RockSpawnTimer - frameTime;
+	if (RockSpawnTimer < 0.0f)
+	{
+		GenerateRocks(int((rand() % 30 + 10.0f) / 10.0f));
+		RockSpawnTimer = (rand() % 50 + 50) / 10.0f;
+	}
 
 	if (endOfLevel == true)
 	{
 		pTheObjectManager->DeleteAllButLevelManager(this);
 
-		MyDrawEngine::GetInstance()->WriteText(halfWidth, 250, L"LEVEL OVER", MyDrawEngine::YELLOW);
+		if (pTheSoundFX)
+		{
+			pTheSoundFX->StopPlayingAlertSound();
+			pTheSoundFX->StopPlayingEngineSound();
+		}
+		MyDrawEngine::GetInstance()->WriteText(halfWidth, 250, L"LEVEL ", MyDrawEngine::YELLOW);
+		MyDrawEngine::GetInstance()->WriteInt(halfWidth + 100, 250, levelNumber, MyDrawEngine::YELLOW);
+		MyDrawEngine::GetInstance()->WriteText(halfWidth + 150, 250, L" COMPLETE", MyDrawEngine::YELLOW);
 
 		MyDrawEngine::GetInstance()->WriteText(halfWidth, 500, L"Score So Far:", MyDrawEngine::YELLOW);
 		MyDrawEngine::GetInstance()->WriteInt(halfWidth + 150, 500, scoreTotal, MyDrawEngine::YELLOW);
@@ -76,6 +99,11 @@ void LevelManager::Update(float frameTime)
 
 		if (pInputs->KeyPressed(DIK_G))
 		{
+			if (pTheSoundFX)
+			{
+				pTheSoundFX->PlaySelect();
+			}
+
 			endOfLevel = false;
 
 			StartLevel();
@@ -85,7 +113,15 @@ void LevelManager::Update(float frameTime)
 
 	if (gameOver == true)
 	{
-		
+
+		pTheObjectManager->DeleteAllButLevelManager(this);
+
+		if (pTheSoundFX)
+		{
+			pTheSoundFX->StopPlayingAlertSound();
+			pTheSoundFX->StopPlayingEngineSound();
+		}
+
 		MyDrawEngine::GetInstance()->WriteText(halfWidth, 250, L"GAME OVER", MyDrawEngine::RED);
 
 		MyDrawEngine::GetInstance()->WriteText(halfWidth, 500, L"Final Score:", MyDrawEngine::RED);
@@ -114,60 +150,53 @@ void LevelManager::StartLevel()
 
 	objectActive = true;
 
+	enemiesSpawned = 0;
 	levelNumber++;
 
 	if (levelNumber == 1)
 	
 	{
-		endLevelTimer = 1000.0f;
-		numberOfEnemies = 5;
-		numberOfRocks = 0;
+		endLevelTimer = 50.0f;
+		enemySpawnTimer = 5.0f;
+		RockSpawnTimer = 2.0f;
 
-		GenerateRocks(numberOfRocks);
+		maxNumEnemies = 5;
+		enemiesLeft = maxNumEnemies;
 
-		GenerateEnemies(numberOfEnemies);
+		maxNumRocks = 10;
 
-		pThePlayer = dynamic_cast <Spaceship*> (pTheObjectManager->Create(ObjectType::SPACESHIP));
-		if (pThePlayer)
-		{
-			pThePlayer->Initialise(Vector2D(20.0f, 20.0f), Vector2D(20.0f, 20.0f), 32.0f, false, true);
-		}
+		GeneratePlayer();
 
 	}
 
 	if (levelNumber == 2)
 	{
-		endLevelTimer = 10.0f;
-		numberOfEnemies = 10;
-		numberOfRocks = 15;
+		endLevelTimer = 100.0f;
+		enemySpawnTimer = 5.0f;
+		RockSpawnTimer = 2.0f;
 
-		GenerateRocks(numberOfRocks);
+		maxNumEnemies = 10;
+		enemiesLeft = maxNumEnemies;
 
-		GenerateEnemies(numberOfEnemies);
+		maxNumRocks = 20;
 
-		pThePlayer = dynamic_cast <Spaceship*> (pTheObjectManager->Create(ObjectType::SPACESHIP));
-		if (pThePlayer)
-		{
-			pThePlayer->Initialise(Vector2D(20.0f, 20.0f), Vector2D(20.0f, 20.0f), 32.0f, false, true);
-		}
+		GeneratePlayer();
 
 	}
 
 	if (levelNumber == 3)
 	{
-		endLevelTimer = 250.0f;
-		numberOfEnemies = 15;
-		numberOfRocks = 25;
+		endLevelTimer = 150.0f;
+		enemySpawnTimer = 5.0f;
+		RockSpawnTimer = 2.0f;
 
-		GenerateRocks(numberOfRocks);
+		maxNumEnemies = 20;
+		enemiesLeft = maxNumEnemies;
 
-		GenerateEnemies(numberOfEnemies);
+		maxNumRocks = 30;
 
-		pThePlayer = dynamic_cast <Spaceship*> (pTheObjectManager->Create(ObjectType::SPACESHIP));
-		if (pThePlayer)
-		{
-			pThePlayer->Initialise(Vector2D(20.0f, 20.0f), Vector2D(20.0f, 20.0f), 32.0f, false, true);
-		}
+		GeneratePlayer();
+
 	}
 
 
@@ -194,7 +223,6 @@ void LevelManager::HandleMessage(Message& msg)
 			pThePlayer = nullptr;
 			pThePlayer = dynamic_cast <Spaceship*> (pTheObjectManager->Create(ObjectType::SPACESHIP));
 			pThePlayer->Initialise(Vector2D(msg.location.XValue + 200.0f, msg.location.YValue), Vector2D(550.0f, 50.0f), 32.0f, false, true);
-			//playerHealth = msg.otherData;
 		}
 	}
 
@@ -206,11 +234,12 @@ void LevelManager::HandleMessage(Message& msg)
 	if (msg.type == EventType::ENEMY_DESTROYED)
 	{
 		EnemyDead();
+		AddScore(5);
 	}
 
 	if (msg.type == EventType::ROCK_EXPLODE)
 	{
-		scoreTotal++;
+		AddScore(int(msg.otherData / 32));
 	}
 
 }
@@ -222,7 +251,7 @@ void LevelManager::AddScore(int score)
 
 void LevelManager::EnemyDead()
 {
-	numberOfEnemies = numberOfEnemies - 1;
+	enemiesLeft = enemiesLeft - 1;
 }
 
 void LevelManager::PlayerDead()
@@ -234,25 +263,46 @@ void LevelManager::GenerateRocks(int amountOfRocks)
 {
 	for (int i = 0; i < amountOfRocks; i++)
 	{
-		GameObject* pTheRock = pTheObjectManager->Create(ObjectType::ROCK);
-		Vector2D pos;
-		Vector2D vel;
-		pos.setBearing(rand() % 628 / 100.0f, rand() % 400 + 600.0f);
-		vel.set(rand() % 200 + (-100.0f), rand() % 200 + (-100.0f));
-		pTheRock->Initialise(pos, vel, 64.0f, true, true);
+		if (rocksSpawned < maxNumRocks)
+		{
+			GameObject* pTheRock = pTheObjectManager->Create(ObjectType::ROCK);
+			Vector2D pos;
+			Vector2D vel;
+			pos.XValue = pThePlayer->getPosition().XValue + 2500.0f;
+			pos.YValue = pThePlayer->getPosition().YValue + (rand() % 1000 - 500.0f);
+			vel.set(rand() % 400 - 250.0f, rand() % 400 - 250.0f);
+			pTheRock->Initialise(pos, vel, 64.0f, true, true);
+			rocksSpawned++;
+		}
 	}
 }
 
-void LevelManager::GenerateEnemies(int amountofEnemies)
+void LevelManager::GenerateEnemies(int amountOfEnemies)
 {
-	for (int i = 0; i < amountofEnemies; i++)
+	for (int i = 0; i < amountOfEnemies; i++)
 	{
-		GameObject* pTheEnemy = pTheObjectManager->Create(ObjectType::ENEMY);
-		Vector2D pos;
-		Vector2D vel;
-		pos.setBearing(rand() % 314 / 100.0f, rand() % 1500 + 600.0f);
-		vel.set(rand() % 400 + (-100.0f), rand() % 400 + (-100.0f));
-		pTheEnemy->Initialise(pos, vel, 32.0f, false, true);
-		(dynamic_cast <Enemy*> (pTheEnemy))->SetTarget(pThePlayer);
+		if (enemiesSpawned < maxNumEnemies)
+		{
+			GameObject* pTheEnemy = pTheObjectManager->Create(ObjectType::ENEMY);
+			Vector2D pos;
+			Vector2D vel;
+			pos.XValue = pThePlayer->getPosition().XValue + 3000.0f;
+			pos.YValue = pThePlayer->getPosition().YValue + (rand() % 1000 - 500.0f);
+			vel.set(rand() % 400 + (-100.0f), rand() % 400 + (-100.0f));
+			pTheEnemy->Initialise(pos, vel, 64.0f, false, true);
+			(dynamic_cast <Enemy*> (pTheEnemy))->SetTarget(pThePlayer);
+			enemiesSpawned++;
+		}
+	}
+
+}
+
+void LevelManager::GeneratePlayer()
+{
+	pThePlayer = dynamic_cast <Spaceship*> (pTheObjectManager->Create(ObjectType::SPACESHIP));
+	if (pThePlayer)
+	{
+		pThePlayer->Initialise(Vector2D(20.0f, 20.0f), Vector2D(20.0f, 20.0f), 32.0f, false, true);
 	}
 }
+

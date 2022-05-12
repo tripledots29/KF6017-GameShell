@@ -45,6 +45,8 @@ private:
 	
 	bool isGameOver;
 
+	int framesToFreeze;
+
 	int m_menuOption;              // Tracks the currently selected menu option, during main or pause menu
 	Game();                        // Constructor
 	~Game();                       // Destructor
@@ -97,6 +99,9 @@ public:
 
 	//Ends the game and returns to menu
 	void EndGame();
+
+	//Freeze game on certain events
+	void StopHit();
 };
 
 

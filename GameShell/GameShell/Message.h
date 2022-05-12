@@ -1,6 +1,11 @@
 #pragma once
 #include "vector2D.h"
 
+/*
+* Purpose: Messaging system using enum allows messages to be sent and handled between all classes
+*
+* @author W18010680
+*/
 class GameObject;
 
 enum class EventType 

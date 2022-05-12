@@ -3,12 +3,17 @@
 #include "mydrawengine.h"
 #include "mysoundengine.h"
 #include "myinputs.h"
-#include "gametimer.h"
 #include "Shapes.h"
 #include <typeinfo>
 #include "ObjectType.h"
 #include "Message.h"
+#include "SoundFX.h"
 
+/*
+* Purpose: Abstract class that is used to create game objects
+*
+* @author W18010680
+*/
 class ObjectManager;
 
 class SoundFX;

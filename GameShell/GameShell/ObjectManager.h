@@ -8,12 +8,13 @@
 #include "LevelManager.h"
 #include "ObjectType.h"
 #include "Message.h"
+#include "Puff.h"
 
 class GameObject;
 
 class ObjectManager
 {
-protected:
+private:
 	 std::list<GameObject*> pObjectList;
 
 public:

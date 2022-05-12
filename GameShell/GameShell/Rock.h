@@ -2,6 +2,12 @@
 #include "GameObject.h"
 #include "ObjectManager.h"
 
+/*
+* Purpose: Rock is an entity that can cause harm and annoyance to the player
+*
+* @author W18010680
+*/
+
 class Rock : public GameObject
 {
 private:

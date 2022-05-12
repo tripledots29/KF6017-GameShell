@@ -157,6 +157,7 @@
     <ClInclude Include="mysoundengine.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="ObjectType.h" />
+    <ClInclude Include="Puff.h" />
     <ClInclude Include="Rock.h" />
     <ClInclude Include="Shapes.h" />
     <ClInclude Include="SoundFX.h" />
@@ -177,6 +178,7 @@
     <ClCompile Include="myinputs.cpp" />
     <ClCompile Include="mysoundengine.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
+    <ClCompile Include="Puff.cpp" />
     <ClCompile Include="Rock.cpp" />
     <ClCompile Include="Shapes.cpp" />
     <ClCompile Include="SoundFX.cpp" />

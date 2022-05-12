@@ -1,5 +1,5 @@
 #include "Explosion.h"
-#include "SoundFX.h"
+//#include "SoundFX.h"
 
 Explosion::Explosion() :GameObject(ObjectType::EXPLOSION)
 {
@@ -21,7 +21,7 @@ void Explosion::Initialise(Vector2D initialPosition, Vector2D initialVelocity, f
 	size = initialSize;
 	imageScale = initialSize / bmpRadius;
 	isJetStream = isSplittable;
-	currentImage = 0;
+	currentImage = 0.1f;
 
 	images[0] = MyDrawEngine::GetInstance()->LoadPicture(L"explosion1.bmp");
 	images[1] = MyDrawEngine::GetInstance()->LoadPicture(L"explosion2.bmp");
@@ -31,11 +31,6 @@ void Explosion::Initialise(Vector2D initialPosition, Vector2D initialVelocity, f
 	images[5] = MyDrawEngine::GetInstance()->LoadPicture(L"explosion6.bmp");
 	images[6] = MyDrawEngine::GetInstance()->LoadPicture(L"explosion7.bmp");
 	images[7] = MyDrawEngine::GetInstance()->LoadPicture(L"explosion8.bmp");
-	
-	if (pTheSoundFX)
-	{
-		pTheSoundFX->PlayExplosion();
-	}
 }
 
 
@@ -50,7 +45,7 @@ void Explosion::Render()
 void Explosion::Update(float frameTime)
 {
 
-	if (currentImage < 6)
+	if (currentImage < 7)
 	{
 		if (isJetStream)
 		{

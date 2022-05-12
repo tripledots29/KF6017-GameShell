@@ -1,6 +1,5 @@
 #include "GameObject.h"
 #include "ObjectManager.h"
-#include "SoundFX.h"
 
 ObjectManager* GameObject::pTheObjectManager = nullptr;
 

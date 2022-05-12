@@ -1,5 +1,5 @@
 #include "spaceship.h"
-#include "SoundFX.h"
+//#include "SoundFX.h"
 
 Spaceship::Spaceship():GameObject(ObjectType::SPACESHIP)
 {
@@ -39,6 +39,18 @@ void Spaceship::Initialise(Vector2D initialPosition, Vector2D initialVelocity, f
 
 }
 
+void Spaceship::Render()
+{
+	if (invDelay > 0 && objectActive)
+	{
+		MyDrawEngine::GetInstance()->DrawAt(position, pic, imageScale, angle, 0.5f); //show invulnerability by fading
+	}
+
+	else if (objectActive)
+	{
+		MyDrawEngine::GetInstance()->DrawAt(position, pic, imageScale, angle);
+	}
+}
 
 void Spaceship::Update(float frameTime)
 {
@@ -60,7 +72,8 @@ void Spaceship::Update(float frameTime)
 		acceleration.setBearing(angle, 500.0f);
 		if (pTheSoundFX)
 		{
-			//pTheSoundFX->StartPlayingEngineSound();
+			pTheSoundFX->SetEngineVolume(20);
+			pTheSoundFX->StartPlayingEngineSound();
 		}
 		GameObject* pTheExplosion = pTheObjectManager->Create(ObjectType::EXPLOSION);
 		Vector2D jet;
@@ -71,22 +84,21 @@ void Spaceship::Update(float frameTime)
 		jetVel = jetVel + velocity;
 		pTheExplosion->Initialise(jet, jetVel, 15.0f, true, false);
 	}
-	
-	if ((pInputs->KeyPressed(DIK_LEFT)) || (pInputs->KeyPressed(DIK_A)))
+	else
 	{
-		acceleration.setBearing(angle, 100.0f);
 		if (pTheSoundFX)
 		{
 			pTheSoundFX->StopPlayingEngineSound();
 		}
 	}
 	
-	velocity = velocity + acceleration * frameTime;
+	if ((pInputs->KeyPressed(DIK_LEFT)) || (pInputs->KeyPressed(DIK_A)))
+	{
+		acceleration.setBearing(angle, 100.0f);
 
-//	if (velocity.magnitude() > 300.0f)
-	//{
-		//velocity = velocity.unitVector() * 300.0f;
-	//}
+	}
+	
+	velocity = velocity + acceleration * frameTime;
 
 	//key inputs for rotating
 	if ((pInputs->KeyPressed(DIK_UP)) || (pInputs->KeyPressed(DIK_W)))
@@ -119,7 +131,7 @@ void Spaceship::Update(float frameTime)
 		Vector2D bulletLaunchPosition;
 
 		//setting bearings for where it comes from and how fast it goes
-		bulletLaunchPosition.setBearing(angle, size*1.5f);
+		bulletLaunchPosition.setBearing(angle, size*2.5f);
 		bulletVelocity.setBearing(angle, 1000.0f); //500 magnitude for the bullet = fast shooting. and at angle ship is currently facing
 
 		//initialise the bullet
@@ -140,10 +152,61 @@ void Spaceship::Update(float frameTime)
 		position.YValue = 1000.0f;
 	}
 	
-	MyDrawEngine::GetInstance()->theCamera.PlaceAt(Vector2D((position.XValue+500), 0));
+	//camera moves when player does
+	MyDrawEngine::GetInstance()->theCamera.PlaceAt(Vector2D((position.XValue+700), 0));
 
 
 	invDelay = invDelay - frameTime; //every frame take away until delay hits 0
+
+	if (health < 55 && health > 25)
+	{
+		if (pTheSoundFX)
+		{
+			pTheSoundFX->SetAlertVolume(40);
+			pTheSoundFX->StartPlayingAlertSound();
+			if (rand() % 1000 < PUFFCHANCE)
+			{
+				GameObject* pThePuff = pTheObjectManager->Create(ObjectType::PUFF);
+				Vector2D offset;
+				offset.setBearing(angle + 1.57f, 5);
+				offset += position;
+				pThePuff->Initialise(offset, Vector2D(0, 0), size / 3, false, false);
+			}
+		}
+	}
+	
+	else if (health <= 25)
+	{
+		if (pTheSoundFX)
+		{
+			pTheSoundFX->SetAlertVolume(80);
+			pTheSoundFX->StartPlayingAlertSound();
+			if (rand() % 500 < PUFFCHANCE)
+			{
+				GameObject* pThePuff = pTheObjectManager->Create(ObjectType::PUFF);
+				Vector2D offset;
+				offset.setBearing(angle + 1.57f, 5);
+				offset += position;
+				pThePuff->Initialise(offset, Vector2D(0, 0), size / 2, false, false);
+			}
+			if (rand() % 2000 < PUFFCHANCE)
+			{
+				GameObject* pTheExplosion = pTheObjectManager->Create(ObjectType::EXPLOSION);
+				Vector2D offset;
+				offset.setBearing(angle + 1.57f, -5);
+				offset += position;
+				pTheExplosion->Initialise(offset, Vector2D(0, 0), size / 1.5f, false, false);
+			}
+		}
+	}
+
+	else
+	{
+		if (pTheSoundFX)
+		{
+			pTheSoundFX->StopPlayingAlertSound();
+		}
+	}
 
 }
 
@@ -189,6 +252,18 @@ void Spaceship::ProcessCollision(GameObject& collidedWith)
 		GameObject* pTheExplosion = pTheObjectManager->Create(ObjectType::EXPLOSION); 
 		pTheExplosion->Initialise(position, Vector2D(0,0), size, false, false);
 	}
+
+	if ((typeid(collidedWith) == typeid(Bullet)) && (collidedWith.getBulletType() == false))
+	{
+		if (pTheSoundFX)
+		{
+			pTheSoundFX->PlayExplosion();
+		}
+		TakeDamage(20);
+		GameObject* pTheExplosion = pTheObjectManager->Create(ObjectType::EXPLOSION);
+		pTheExplosion->Initialise(position, Vector2D(0, 0), size/2, false, false);
+	}
+
 
 }
 

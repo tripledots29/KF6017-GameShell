@@ -275,18 +275,22 @@ ErrorType Game::StartOfGame()
 {
    // Code to set up your game *********************************************
    // **********************************************************************
-	
-	isGameOver = false;
+	gt.mark();
+	gt.mark();
 
-	TheSoundFX.LoadSounds();
+	isGameOver = false; //game not over
+
+	srand(unsigned int(time(NULL))); //makes rand() random each time
+
+	framesToFreeze = 0; //no frames frozen at start
+
+	TheSoundFX.LoadSounds(); //load all the sounds
 
 
+	// make level manager, add it to object manager, start the first level
 	pTheLevelManager = new LevelManager;
 	TheObjectManager.AddObject(pTheLevelManager);
 	pTheLevelManager->StartLevel();
-
-	gt.mark();
-
 
 
 	return SUCCESS;
@@ -316,12 +320,20 @@ ErrorType Game::Update()
 	
 	gt.mark();
 
+	//freeze the game when the amount of frames to freeze is set
+	if (framesToFreeze > 0)
+	{
+		gt.mdFrameTime = 0;
+		framesToFreeze--;
+	}
 
+	//object manager tasks every frame
 	TheObjectManager.UpdateAll(float (gt.mdFrameTime));
 	TheObjectManager.RenderAll();
 	TheObjectManager.DeleteAllInactive();
 	TheObjectManager.CheckAllCollisions();
 
+	//if game is over then go to menu and end the game
 	if (isGameOver == true)
 	{
 		EndOfGame();
@@ -354,5 +366,10 @@ ErrorType Game::EndOfGame()
 void Game::EndGame()
 {
 	isGameOver = true;
+}
+
+void Game::StopHit()
+{
+	framesToFreeze = 3;
 }
 
