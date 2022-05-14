@@ -25,7 +25,7 @@ private:
 	float health = 100;
 	float deltaBearing;
 
-	const float INVDELAYDEFAULT = 1.5f;
+	const float INVDELAYDEFAULT = 0.5f;
 	float invDelay = INVDELAYDEFAULT;
 
 	Vector2D desiredVelocity;

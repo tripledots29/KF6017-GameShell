@@ -79,38 +79,6 @@ void LevelManager::Update(float frameTime)
 		RockSpawnTimer = (rand() % 50 + 50) / 10.0f;
 	}
 
-	if (endOfLevel == true)
-	{
-		pTheObjectManager->DeleteAllButLevelManager(this);
-
-		if (pTheSoundFX)
-		{
-			pTheSoundFX->StopPlayingAlertSound();
-			pTheSoundFX->StopPlayingEngineSound();
-		}
-		MyDrawEngine::GetInstance()->WriteText(halfWidth, 250, L"LEVEL ", MyDrawEngine::YELLOW);
-		MyDrawEngine::GetInstance()->WriteInt(halfWidth + 100, 250, levelNumber, MyDrawEngine::YELLOW);
-		MyDrawEngine::GetInstance()->WriteText(halfWidth + 150, 250, L" COMPLETE", MyDrawEngine::YELLOW);
-
-		MyDrawEngine::GetInstance()->WriteText(halfWidth, 500, L"Score So Far:", MyDrawEngine::YELLOW);
-		MyDrawEngine::GetInstance()->WriteInt(halfWidth + 150, 500, scoreTotal, MyDrawEngine::YELLOW);
-
-		MyDrawEngine::GetInstance()->WriteText(halfWidth, 700, L"Press G to Continue", MyDrawEngine::WHITE);
-
-		if (pInputs->KeyPressed(DIK_G))
-		{
-			if (pTheSoundFX)
-			{
-				pTheSoundFX->PlaySelect();
-			}
-
-			endOfLevel = false;
-
-			StartLevel();
-		}
-
-	}
-
 	if (gameOver == true)
 	{
 
@@ -132,8 +100,46 @@ void LevelManager::Update(float frameTime)
 
 		if (pInputs->KeyPressed(DIK_G))
 		{
+			if (pTheSoundFX)
+			{
+				pTheSoundFX->PlaySelect();
+			}
+
 			Game::instance.EndGame();
 		}
+	}
+
+	else if (endOfLevel == true)
+	{
+		pTheObjectManager->DeleteAllButLevelManager(this);
+
+		if (pTheSoundFX)
+		{
+			pTheSoundFX->StopPlayingAlertSound();
+			pTheSoundFX->StopPlayingEngineSound();
+		}
+
+		MyDrawEngine::GetInstance()->WriteText(halfWidth, 250, L"LEVEL ", MyDrawEngine::YELLOW);
+		MyDrawEngine::GetInstance()->WriteInt(halfWidth + 100, 250, levelNumber, MyDrawEngine::YELLOW);
+		MyDrawEngine::GetInstance()->WriteText(halfWidth + 150, 250, L" COMPLETE", MyDrawEngine::YELLOW);
+
+		MyDrawEngine::GetInstance()->WriteText(halfWidth, 500, L"Score So Far:", MyDrawEngine::YELLOW);
+		MyDrawEngine::GetInstance()->WriteInt(halfWidth + 150, 500, scoreTotal, MyDrawEngine::YELLOW);
+
+		MyDrawEngine::GetInstance()->WriteText(halfWidth, 700, L"Press G to Continue", MyDrawEngine::WHITE);
+
+		if (pInputs->KeyPressed(DIK_G))
+		{
+			if (pTheSoundFX)
+			{
+				pTheSoundFX->PlaySelect();
+			}
+
+			endOfLevel = false;
+
+			StartLevel();
+		}
+
 	}
 	
 }

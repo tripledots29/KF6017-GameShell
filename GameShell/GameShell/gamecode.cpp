@@ -210,6 +210,18 @@ ErrorType Game::MainMenu()
 {
 	MyDrawEngine::GetInstance()->WriteText(450,220, L"Main menu", MyDrawEngine::WHITE);
 
+	MyDrawEngine::GetInstance()->WriteText(900, 220, L"Controls", MyDrawEngine::GREEN);
+	MyDrawEngine::GetInstance()->WriteText(900, 300, L"W,S / Up,Down: Tilt Up and Down", MyDrawEngine::GREEN);
+	MyDrawEngine::GetInstance()->WriteText(900, 350, L"A / Left: Slow Down", MyDrawEngine::GREEN);
+	MyDrawEngine::GetInstance()->WriteText(900, 400, L"D / Right: Boost", MyDrawEngine::GREEN);
+	MyDrawEngine::GetInstance()->WriteText(900, 450, L"Space: Shoot", MyDrawEngine::GREEN);
+	MyDrawEngine::GetInstance()->WriteText(900, 500, L"Esc: Pause", MyDrawEngine::GREEN);
+
+	MyDrawEngine::GetInstance()->WriteText(1500, 220, L"Score Totals", MyDrawEngine::RED);
+	MyDrawEngine::GetInstance()->WriteText(1500, 300, L"Small Rock: 1", MyDrawEngine::RED);
+	MyDrawEngine::GetInstance()->WriteText(1500, 350, L"Big Rock: 2", MyDrawEngine::RED);
+	MyDrawEngine::GetInstance()->WriteText(1500, 400, L"Enemy: 5", MyDrawEngine::RED);
+
 	const int NUMOPTIONS = 2;
 	wchar_t options[NUMOPTIONS][15] = {L"Start game", L"Exit"};
 

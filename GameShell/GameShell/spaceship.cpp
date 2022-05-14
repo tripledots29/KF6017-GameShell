@@ -65,7 +65,6 @@ void Spaceship::Update(float frameTime)
 	Vector2D acceleration;
 	acceleration.setBearing(angle, 200.0f);
 
-
 	//key inputs for movement
 	if ((pInputs->KeyPressed(DIK_RIGHT)) || (pInputs->KeyPressed(DIK_D)))
 	{
@@ -253,7 +252,7 @@ void Spaceship::ProcessCollision(GameObject& collidedWith)
 		pTheExplosion->Initialise(position, Vector2D(0,0), size, false, false);
 	}
 
-	if ((typeid(collidedWith) == typeid(Bullet)) && (collidedWith.getBulletType() == false))
+	if ((typeid(collidedWith) == typeid(Bullet)) && (collidedWith.getBulletType() == false) && (invDelay < 0))
 	{
 		if (pTheSoundFX)
 		{

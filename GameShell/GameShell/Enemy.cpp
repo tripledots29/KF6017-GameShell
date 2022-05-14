@@ -40,11 +40,17 @@ void Enemy::Initialise(Vector2D initialPosition, Vector2D initialVelocity, float
 
 void Enemy::Render()
 {
-	if (objectActive)
+	if (invDelay > 0 && objectActive)
 	{
-		MyDrawEngine::GetInstance()->DrawAt(position, images[int(chosenImage)], imageScale, angle, 0); //position, picture, scale, angle, transparancy (0 = opaque)
+		MyDrawEngine::GetInstance()->DrawAt(position, images[int(chosenImage)], imageScale, angle, 0.5f); //show invulnerability by fading
+	}
+
+	else if (objectActive)
+	{
+		MyDrawEngine::GetInstance()->DrawAt(position, images[int(chosenImage)], imageScale, angle);
 	}
 }
+
 
 void Enemy::Update(float frameTime)
 {
